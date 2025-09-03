@@ -1,0 +1,470 @@
+/* 基础样式 */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+}
+
+:root {
+  --primary-color: #8B4513;
+  --secondary-color: #D2B48C;
+  --accent-color: #A52A2A;
+  --light-color: #F5F5DC;
+  --dark-color: #3E2723;
+  --text-color: #4E342E;
+  --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+body {
+  background-color: var(--light-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23F5F5DC"/><path d="M0,50 Q25,40 50,50 T100,50" stroke="%23D2B48C" stroke-width="0.5" fill="none"/></svg>');
+  background-size: 200px;
+}
+
+/* 导航栏样式 */
+.navbar {
+  background: rgba(139, 69, 19, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  color: var(--light-color);
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.logo i {
+  margin-right: 10px;
+  color: var(--secondary-color);
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 30px;
+}
+
+.nav-links a {
+  color: var(--light-color);
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background-color: var(--secondary-color);
+  color: var(--dark-color);
+}
+
+/* 头部区域 */
+.hero {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  margin-top: 70px;
+  background: linear-gradient(rgba(245, 245, 220, 0.8), rgba(245, 245, 220, 0.9)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23D2B48C" opacity="0.1"/><path d="M20,20 Q40,5 60,20 T100,20" stroke="%238B4513" stroke-width="0.3" fill="none"/></svg>');
+  background-size: cover;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: var(--dark-color);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeInDown 1s ease;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  max-width: 800px;
+  margin-bottom: 30px;
+  color: var(--text-color);
+  animation: fadeInUp 1s ease;
+}
+
+.hero-btn {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 12px 35px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: 0 4px 10px rgba(165, 42, 42, 0.3);
+  animation: fadeIn 1.5s ease;
+}
+
+.hero-btn:hover {
+  background-color: var(--dark-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(165, 42, 42, 0.4);
+}
+
+/* 产品分类 */
+.categories {
+  padding: 80px 5%;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 60px;
+  color: var(--dark-color);
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: "";
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: var(--accent-color);
+  border-radius: 2px;
+}
+
+.category-filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+
+.filter-btn {
+  background: transparent;
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+  padding: 10px 25px;
+  margin: 0 10px 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* 产品展示 - 关键修改部分 */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(295px, 1fr));
+  gap: 30px;
+  padding: 0 5% 80px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* 图片容器样式 */
+.product-img {
+  position: relative;
+  overflow: hidden;
+  height: 295px;
+  /* 固定高度 */
+  background-color: var(--secondary-color);
+}
+
+/* 图片自适应样式 */
+.product-img img {
+  position: relative;
+  top: 25px;
+  /* 向下移动25像素 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* 关键属性：保持比例并填充容器 */
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+/* 图片遮罩 */
+.product-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(210, 180, 140, 0.2) 0%, rgba(139, 69, 19, 0.1) 100%);
+  z-index: 1;
+}
+
+/* 悬停效果 */
+.product-card:hover .product-img img {
+  transform: scale(1.1);
+}
+
+/* 产品信息区域 */
+.product-info {
+  padding: 20px;
+  flex-grow: 1;
+  /* 确保信息区域填充剩余空间 */
+  display: flex;
+  flex-direction: column;
+}
+
+.product-title {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--dark-color);
+}
+
+.product-desc {
+  color: var(--text-color);
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  flex-grow: 1;
+  /* 描述区域自适应 */
+}
+
+.product-def {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: var(--accent-color);
+  margin-top: auto;
+  /* 性质始终在底部 */
+}
+
+/* 页脚 */
+footer {
+  background: var(--dark-color);
+  color: var(--light-color);
+  padding: 50px 5% 20px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section h3 {
+  font-size: 1.5rem;
+  margin-bottom: 25px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.footer-section h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background: var(--accent-color);
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.footer-links i {
+  margin-right: 10px;
+  width: 20px;
+  text-align: center;
+}
+
+.footer-links a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: white;
+}
+
+.social-links {
+  display: flex;
+  margin-top: 20px;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--primary-color);
+  color: white;
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--accent-color);
+  transform: translateY(-3px);
+}
+
+.copyright {
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(210, 180, 140, 0.3);
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .logo {
+    margin-bottom: 15px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .nav-links li {
+    margin: 5px 10px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+  }
+
+  .hero p {
+    font-size: 1.2rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .products {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-links a {
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .filter-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    margin: 0 5px 10px;
+  }
+
+  .products {
+    grid-template-columns: 1fr;
+  }
+
+  .product-img {
+    height: 220px;
+    /* 小屏幕上减小高度 */
+  }
+}

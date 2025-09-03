@@ -1,0 +1,2947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纹样图库 - 智绣华裳</title>
+  <link rel="stylesheet" href="style2.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+  <!-- 导航栏 -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <i class="fas fa-tshirt"></i>
+      智绣华裳
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">首页</a></li>
+      <li><a href="#" class="active">纹样图库</a></li>
+      <li><a href="#">生肖系列</a></li>
+      <li><a href="#">泥泥狗</a></li>
+      <li><a href="#">非遗服饰</a></li>
+      <li><a href="#">关于我们</a></li>
+    </ul>
+  </nav>
+
+  <!-- 数据库页面内容 -->
+  <div class="database-container">
+    <h1 class="page-title">传统纹样图片数据库</h1>
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-number">1,258</div>
+        <div class="stat-label">纹样总数</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">24</div>
+        <div class="stat-label">纹样类别</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">12</div>
+        <div class="stat-label">朝代分类</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">48</div>
+        <div class="stat-label">非遗项目</div>
+      </div>
+    </div>
+
+    <!-- 搜索区域 -->
+    <div class="search-section">
+      <div class="search-box">
+        <input type="text" class="search-input" placeholder="搜索纹样名称、朝代或关键词...">
+        <button class="search-btn">
+          <i class="fas fa-search"></i> 搜索
+        </button>
+      </div>
+
+      <div class="search-filters">
+        <div class="filter-tag active">全部</div>
+        <div class="filter-tag">醒狮</div>
+        <div class="filter-tag">旗袍</div>
+        <div class="filter-tag">凤冠</div>
+        <div class="filter-tag">傩面</div>
+        <div class="filter-tag">戏曲</div>
+        <div class="filter-tag">云肩</div>
+        <div class="filter-tag">汉代</div>
+        <div class="filter-tag">唐代</div>
+        <div class="filter-tag">宋代</div>
+        <div class="filter-tag">明代</div>
+      </div>
+    </div>
+
+    <!-- 轮播图区域 -->
+    <div class="carousel-section">
+      <h2 class="carousel-title">精选纹样展示</h2>
+      <div class="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item">
+            <img src="images/传统剪纸精选.jpg" alt="传统剪纸" class="carousel-img">
+            <div class="carousel-caption">
+              <h3>传统剪纸</h3>
+              <p>用于宣传传统文化，传承民间艺术</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/jx(2).jpg" alt="传统纹样" class="carousel-img">
+            <div class="carousel-caption">
+              <h3>传统剪纸</h3>
+              <p>用于宣传传统文化，传承民间艺术</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/jx(3).jpg" alt="传统纹样" class="carousel-img">
+            <div class="carousel-caption">
+              <h3>传统剪纸</h3>
+              <p>用于宣传传统文化，传承民间艺术</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="images/jx(4).jpg" alt="传统纹样" class="carousel-img">
+            <div class="carousel-caption">
+              <h3>传统剪纸</h3>
+              <p>用于宣传传统文化，传承民间艺术</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="carousel-controls">
+          <button class="carousel-btn prev-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button class="carousel-btn next-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <div class="carousel-indicators">
+          <div class="indicator active"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+          <div class="indicator"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 瀑布流图片展示 -->
+    <div class="gallery-section">
+      <h2 class="gallery-title">纹样图库</h2>
+      <div class="masonry-grid" id="masonryGrid">
+        <!-- 纹样模板（JS动态填充） -->
+      </div>
+      <!-- 分页控件 -->
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </div>
+  <!-- 图片模态框 -->
+  <div class="modal" id="imageModal">
+    <div class="modal-content">
+      <button class="close-modal">&times;</button>
+      <img src="" alt="放大图片" class="modal-img" id="modalImage">
+      <div class="modal-info">
+        <h3 class="modal-title" id="modalTitle"></h3>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-actions">
+          <button class="modal-btn" id="downloadBtn">
+            <i class="fas fa-download"></i> 下载图片
+          </button>
+          <button class="modal-btn" id="closeBtn">
+            <i class="fas fa-times"></i> 关闭
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>关于我们</h3>
+        <p>智绣华裳致力于将传统文化与现代设计相结合，打造具有文化内涵的时尚服饰。我们与多位非遗传承人合作，让传统工艺在当代焕发新生。</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-weixin"></i></a>
+          <a href="#"><i class="fab fa-weibo"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-section">
+        <h3>快速链接</h3>
+        <ul class="footer-links">
+          <li><a href="#">首页</a></li>
+          <li><a href="#">纹样图库</a></li>
+          <li><a href="#">最新活动</a></li>
+          <li><a href="#">文化故事</a></li>
+          <li><a href="#">设计团队</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-section">
+        <h3>联系方式</h3>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> 北京市朝阳区文创园A座</li>
+          <li><i class="fas fa-phone"></i> 400-123-4567</li>
+          <li><i class="fas fa-envelope"></i> contact@zhixiuhuashang.com</li>
+          <li><i class="fas fa-clock"></i> 周一至周六 9:00-18:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">
+      <p>&copy; 2025 智绣华裳 版权所有 | 文创服饰设计品牌</p>
+    </div>
+  </footer>
+
+  <script>
+    // 轮播图功能
+    document.addEventListener('DOMContentLoaded', function () {
+      // 轮播图变量
+      const carousel = document.querySelector('.carousel-inner');
+      const items = document.querySelectorAll('.carousel-item');
+      const indicators = document.querySelectorAll('.indicator');
+      const prevBtn = document.querySelector('.prev-btn');
+      const nextBtn = document.querySelector('.next-btn');
+
+      let currentIndex = 0;
+      const totalItems = items.length;
+      let intervalId;
+
+      // 更新轮播图位置
+      function updateCarousel() {
+        carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        // 更新指示器
+        indicators.forEach((indicator, index) => {
+          if (index === currentIndex) {
+            indicator.classList.add('active');
+          } else {
+            indicator.classList.remove('active');
+          }
+        });
+      }
+
+      // 下一张
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalItems;
+        updateCarousel();
+      }
+
+      // 上一张
+      function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalItems) % totalItems;
+        updateCarousel();
+      }
+
+      // 自动轮播
+      function startAutoSlide() {
+        intervalId = setInterval(nextSlide, 5000);
+      }
+
+      // 停止自动轮播
+      function stopAutoSlide() {
+        clearInterval(intervalId);
+      }
+
+      // 事件监听
+      nextBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        nextSlide();
+        startAutoSlide();
+      });
+
+      prevBtn.addEventListener('click', () => {
+        stopAutoSlide();
+        prevSlide();
+        startAutoSlide();
+      });
+
+      // 指示器点击
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          stopAutoSlide();
+          currentIndex = index;
+          updateCarousel();
+          startAutoSlide();
+        });
+      });
+
+      // 开始自动轮播
+      startAutoSlide();
+
+      // 搜索功能
+      const searchBtn = document.querySelector('.search-btn');
+      const searchInput = document.querySelector('.search-input');
+
+      searchBtn.addEventListener('click', function () {
+        if (searchInput.value.trim() !== '') {
+          alert(`正在搜索: ${searchInput.value}`);
+          // 实际应用中这里会有搜索逻辑
+        }
+      });
+
+      searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') {
+          if (searchInput.value.trim() !== '') {
+            alert(`正在搜索: ${searchInput.value}`);
+          }
+        }
+      });
+
+      // 过滤标签功能
+      const filterTags = document.querySelectorAll('.filter-tag');
+
+      filterTags.forEach(tag => {
+        tag.addEventListener('click', function () {
+          filterTags.forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          alert(`过滤: ${this.textContent}`);
+          // 实际应用中这里会有过滤逻辑
+        });
+      });
+    });
+    // 图片点击放大功能
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalTags = document.getElementById('modalTags');
+    const downloadBtn = document.getElementById('downloadBtn');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const closeBtn = document.getElementById('closeBtn');
+    let currentImageSrc = '';
+    let currentImageAlt = '';
+
+    // 为每个瀑布流图片添加点击事件
+    document.querySelectorAll('.masonry-item').forEach(item => {
+      item.addEventListener('click', function () {
+        const img = this.querySelector('.masonry-img');
+        currentImageSrc = img.src;
+        currentImageAlt = img.alt;
+
+        modalImage.src = currentImageSrc;
+        modalImage.alt = currentImageAlt;
+
+        // 获取数据属性
+        const title = this.dataset.title || img.alt;
+        const tags = this.dataset.tags ? this.dataset.tags.split(',') : [];
+
+        modalTitle.textContent = title;
+
+        // 清空并重新添加标签
+        modalTags.innerHTML = '';
+        tags.forEach(tag => {
+          const tagElement = document.createElement('span');
+          tagElement.className = 'modal-tag';
+          tagElement.textContent = tag;
+          modalTags.appendChild(tagElement);
+        });
+
+        // 显示模态框
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // 下载按钮功能
+    downloadBtn.addEventListener('click', function () {
+      const a = document.createElement('a');
+      a.href = currentImageSrc;
+      a.download = currentImageAlt || '传统纹样';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    });
+
+    // 关闭模态框
+    function closeModal() {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    closeModalBtn.addEventListener('click', closeModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    // 点击模态框背景关闭
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // 按ESC键关闭模态框
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    // 纹样数据（将56+90个纹样复制15组，得到2190个）
+    const patternItems = [
+      {
+        src: "images/云肩.jpg",
+        title: "云肩",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "云肩"
+      },
+      {
+        src: "images/云肩 (2).jpg",
+        title: "云肩",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "云肩"
+      },
+      {
+        src: "images/云肩 (3).jpg",
+        title: "云肩",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "云肩"
+      },
+      {
+        src: "images/云肩 (4).jpg",
+        title: "云肩",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "云肩"
+      },
+      {
+        src: "images/傩面.jpg",
+        title: "傩面",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "傩面"
+      },
+      {
+        src: "images/醒狮.jpg",
+        title: "醒狮",
+        tags: ["民俗", "舞狮", "节庆"],
+        alt: "醒狮"
+      },
+      {
+        src: "images/醒狮 (2).jpg",
+        title: "醒狮",
+        tags: ["民俗", "舞狮", "节庆"],
+        alt: "醒狮"
+      },
+      {
+        src: "images/戏曲.jpg",
+        title: "戏曲",
+        tags: ["表演艺术", "传统文化", "脸谱"],
+        alt: "戏曲"
+      },
+      {
+        src: "images/戏曲2.jpg",
+        title: "戏曲",
+        tags: ["表演艺术", "传统文化", "脸谱"],
+        alt: "戏曲"
+      },
+      {
+        src: "images/凤冠.jpg",
+        title: "凤冠",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "凤冠"
+      },
+      {
+        src: "images/汉服.jpg",
+        title: "汉服",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "汉服"
+      },
+      {
+        src: "images/婚纱.jpg",
+        title: "婚纱",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "婚纱"
+      },
+      {
+        src: "images/剪纸旗袍.jpg",
+        title: "剪纸旗袍",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "剪纸旗袍"
+      },
+      {
+        src: "images/剪纸旗袍 (2).jpg",
+        title: "剪纸旗袍",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "剪纸旗袍"
+      },
+      {
+        src: "images/旗袍.jpg",
+        title: "旗袍",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "旗袍"
+      },
+      {
+        src: "images/旗袍2.png",
+        title: "旗袍",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "旗袍"
+      },
+      {
+        src: "images/旗袍 (2).jpg",
+        title: "旗袍",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "旗袍"
+      },
+      {
+        src: "images/裙子.jpg",
+        title: "裙子",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "裙子"
+      },
+      {
+        src: "images/sw (1).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (2).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (3).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (4).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (5).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (6).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (7).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (8).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (9).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (10).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (11).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (12).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (13).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (14).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (15).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (16).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (17).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (18).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (19).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (20).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/sw (21).jpg",
+        title: "服饰",
+        tags: ["时尚", "古今融合", "服饰"],
+        alt: "服饰"
+      },
+      {
+        src: "images/鼠.jpg",
+        title: "子鼠",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "子鼠"
+      },
+      {
+        src: "images/牛.jpg",
+        title: "丑牛",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "丑牛"
+      },
+      {
+        src: "images/虎.jpg",
+        title: "寅虎",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "寅虎"
+      },
+      {
+        src: "images/兔.jpg",
+        title: "卯兔",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "卯兔"
+      },
+      {
+        src: "images/龙.jpg",
+        title: "辰龙",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "辰龙"
+      },
+      {
+        src: "images/蛇.jpg",
+        title: "巳蛇",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "巳蛇"
+      },
+      {
+        src: "images/马.jpg",
+        title: "午马",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "午马"
+      },
+      {
+        src: "images/羊.jpg",
+        title: "未羊",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "未羊"
+      },
+      {
+        src: "images/猴.jpg",
+        title: "申猴",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "申猴"
+      },
+      {
+        src: "images/鸡.jpg",
+        title: "酉鸡",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "酉鸡"
+      },
+      {
+        src: "images/狗.jpg",
+        title: "戌狗",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "戌狗"
+      },
+      {
+        src: "images/猪.jpg",
+        title: "亥猪",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "亥猪"
+      },
+      {
+        src: "images/全.jpg",
+        title: "生肖全家福",
+        tags: ["生肖", "手工艺", "传统文化"],
+        alt: "生肖全家福"
+      },
+      {
+        src: "images/p1.jpg",
+        title: "泥泥狗1",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "泥泥狗"
+      },
+      {
+        src: "images/p2.jpg",
+        title: "泥泥狗2",
+        tags: ["非遗项目", "手工艺", "传统文化"],
+        alt: "泥泥狗"
+      },
+      {
+        src: "images/传统剪纸精选.jpg",
+        title: "传统剪纸",
+        tags: ["民间艺术", "剪纸", "装饰"],
+        alt: "传统剪纸"
+      },
+      {
+        src: "images/财神像.jpg",
+        title: "财神像",
+        tags: ["民间艺术", "剪纸", "财运"],
+        alt: "财神像"
+      },
+      {
+        src: "images/财神+金蟾.png",
+        title: "财神像",
+        tags: ["民间艺术", "剪纸", "招财进宝"],
+        alt: "财神像"
+      },
+      {
+        src: "images/金鱼+元宝.png",
+        title: "金鱼元宝",
+        tags: ["民间艺术", "剪纸", "金玉满堂"],
+        alt: "金鱼元宝"
+      },
+      {
+        src: "images/聚宝盆+摇钱树.png",
+        title: "聚宝盆与摇钱树",
+        tags: ["民间艺术", "剪纸", "财源广进"],
+        alt: "聚宝盆与摇钱树"
+      },
+      {
+        src: "images/鲤鱼跃龙门.jpg",
+        title: "鲤鱼跃龙门",
+        tags: ["民间艺术", "剪纸", "仕途高升"],
+        alt: "鲤鱼跃龙门"
+      },
+      {
+        src: "images/铜钱纹（圆形方孔钱）.jpg",
+        title: "铜钱纹（圆形方孔钱）",
+        tags: ["民间艺术", "剪纸", "财运"],
+        alt: "铜钱纹（圆形方孔钱）"
+      },
+      {
+        src: "images/蝙蝠+寿桃（“福寿双全”）.png",
+        title: "蝙蝠+寿桃（“福寿双全”）",
+        tags: ["民间艺术", "剪纸", "福寿双全"],
+        alt: "蝙蝠+寿桃（“福寿双全”）"
+      },
+      {
+        src: "images/佛手+铜钱（“福财双至”）.png",
+        title: "佛手+铜钱（“福财双至”）",
+        tags: ["民间艺术", "剪纸", "福财双至"],
+        alt: "佛手+铜钱（“福财双至”）"
+      },
+      {
+        src: "images/单只蝙蝠纹谐音“福”.jpg",
+        title: "单只蝙蝠纹谐音“福”",
+        tags: ["民间艺术", "剪纸", "福"],
+        alt: "单只蝙蝠纹谐音“福”"
+      },
+      {
+        src: "images/多福组合.jpg",
+        title: "多福组合",
+        tags: ["民间艺术", "剪纸", "福"],
+        alt: "多福组合"
+      },
+      {
+        src: "images/多只蝙蝠纹谐音“福”.jpg",
+        title: "多只蝙蝠纹谐音“福”",
+        tags: ["民间艺术", "剪纸", "福"],
+        alt: "多只蝙蝠纹谐音“福”"
+      },
+      {
+        src: "images/福字+鲤鱼（“福运有余”）.png",
+        title: "福字+鲤鱼",
+        tags: ["民间艺术", "剪纸", "福运有余"],
+        alt: "福字+鲤鱼"
+      },
+      {
+        src: "images/福字与葫芦（福禄双全）.jpg",
+        title: "福字与葫芦",
+        tags: ["民间艺术", "剪纸", "福禄双全"],
+        alt: "福字与葫芦"
+      },
+      {
+        src: "images/福字与牡丹组合（福贵）.jpg",
+        title: "福字与牡丹组合（福贵）",
+        tags: ["民间艺术", "剪纸", "福贵"],
+        alt: "福字与牡丹组合（福贵）"
+      },
+      {
+        src: "images/圆形福.jpg",
+        title: "圆形福",
+        tags: ["民间艺术", "剪纸", "福"],
+        alt: "圆形福"
+      },
+      {
+        src: "images/单鹿+仙草.jpg",
+        title: "单鹿+仙草",
+        tags: ["民间艺术", "剪纸", "禄"],
+        alt: "单鹿+仙草"
+      },
+      {
+        src: "images/鹿+官帽（“禄位高升”）.png",
+        title: "鹿+官帽",
+        tags: ["民间艺术", "剪纸", "禄位高升"],
+        alt: "鹿+官帽"
+      },
+      {
+        src: "images/鹿+灵芝（“禄寿康宁”）.png",
+        title: "鹿+灵芝",
+        tags: ["民间艺术", "剪纸", "禄寿康宁"],
+        alt: "鹿+灵芝"
+      },
+      {
+        src: "images/鹿群+仙草.jpg",
+        title: "鹿群+仙草",
+        tags: ["民间艺术", "剪纸", "禄"],
+        alt: "鹿群+仙草"
+      },
+      {
+        src: "images/麦穗+鹿（“禄粮丰足”）.png",
+        title: "麦穗+鹿",
+        tags: ["民间艺术", "剪纸", "禄粮丰足"],
+        alt: "麦穗+鹿"
+      },
+      {
+        src: "images/“寿”字纹 (2).jpg",
+        title: "“寿”字纹",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "“寿”字纹"
+      },
+      {
+        src: "images/“寿”字纹（百寿图）.jpg",
+        title: "“寿”字纹",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "“寿”字纹"
+      },
+      {
+        src: "images/“寿”字纹（圆形寿）.jpg",
+        title: "“寿”字纹",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "“寿”字纹"
+      },
+      {
+        src: "images/“寿”字纹（长寿纹）.jpg",
+        title: "“寿”字纹",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "“寿”字纹"
+      },
+      {
+        src: "images/“寿”字纹.jpg",
+        title: "“寿”字纹",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "“寿”字纹"
+      },
+      {
+        src: "images/龟纹（龟龄鹤寿）.jpg",
+        title: "龟纹（龟龄鹤寿）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "龟纹（龟龄鹤寿）"
+      },
+      {
+        src: "images/寿星公（拄拐杖、）.jpg",
+        title: "寿星公（拄拐杖、）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星公（拄拐杖、）"
+      },
+      {
+        src: "images/寿星公（拄拐杖、捧寿桃）.jpg",
+        title: "寿星公（拄拐杖、捧寿桃）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星公（拄拐杖、捧寿桃）"
+      },
+      {
+        src: "images/寿星公寿星婆（拄拐杖、捧寿桃）.jpg",
+        title: "寿星公寿星婆（拄拐杖、捧寿桃）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星公寿星婆（拄拐杖、捧寿桃）"
+      },
+      {
+        src: "images/寿星婆（拄拐杖捧寿桃） (2).jpg",
+        title: "寿星婆（拄拐杖捧寿桃）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星婆（拄拐杖捧寿桃）"
+      },
+      {
+        src: "images/寿星婆（拄拐杖捧寿桃） (3).jpg",
+        title: "寿星婆（拄拐杖捧寿桃）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星婆（拄拐杖捧寿桃）"
+      },
+      {
+        src: "images/寿星婆（拄拐杖捧寿桃）.jpg",
+        title: "寿星婆（拄拐杖捧寿桃）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "寿星婆（拄拐杖捧寿桃）"
+      },
+      {
+        src: "images/寿字+蟠桃会场景（群仙祝寿）.png",
+        title: "寿字+蟠桃会场景",
+        tags: ["民间艺术", "剪纸", "群仙祝寿"],
+        alt: "寿字+蟠桃会场景"
+      },
+      {
+        src: "images/乌龟+寿桃（“龟龄鹤寿”）.png",
+        title: "乌龟+寿桃（“龟龄鹤寿”）",
+        tags: ["民间艺术", "剪纸", "龟龄鹤寿"],
+        alt: "乌龟+寿桃（“龟龄鹤寿”）"
+      },
+      {
+        src: "images/寿字+松针（“松龄鹤寿”）.png",
+        title: "寿字+松针（“松龄鹤寿”）",
+        tags: ["民间艺术", "剪纸", "松龄鹤寿"],
+        alt: "寿字+松针（“松龄鹤寿”）"
+      },
+      {
+        src: "images/仙鹤纹（仙鹤祝寿）.jpg",
+        title: "仙鹤纹（仙鹤祝寿）",
+        tags: ["民间艺术", "剪纸", "仙鹤祝寿"],
+        alt: "仙鹤纹（仙鹤祝寿）"
+      },
+      {
+        src: "images/石榴+百合（“喜得贵子+百年好合”）.jpg",
+        title: "石榴+百合",
+        tags: ["民间艺术", "喜得贵子", "百年好合"],
+        alt: "石榴+百合"
+      },
+      {
+        src: "images/双喜字+并蒂莲（“喜结连理”）.png",
+        title: "双喜字+并蒂莲",
+        tags: ["民间艺术", "剪纸", "喜结连理"],
+        alt: "双喜字+并蒂莲"
+      },
+      {
+        src: "images/喜鹊+梅花（“喜上眉梢”）.png",
+        title: "喜鹊+梅花",
+        tags: ["民间艺术", "剪纸", "喜上眉梢"],
+        alt: "喜鹊+梅花"
+      },
+      {
+        src: "images/喜鹊+石榴（“喜得贵子”）.png",
+        title: "喜鹊+石榴",
+        tags: ["民间艺术", "剪纸", "喜得贵子"],
+        alt: "喜鹊+石榴"
+      },
+      {
+        src: "images/鸳鸯纹（鸳鸯戏水，象征婚恋）.jpg",
+        title: "鸳鸯纹",
+        tags: ["民间艺术", "剪纸", "鸳鸯戏水"],
+        alt: "鸳鸯纹"
+      },
+      {
+        src: "images/八宝纹 (2).jpg",
+        title: "八宝纹",
+        tags: ["民间艺术", "剪纸", "吉祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹 (3).jpg",
+        title: "八宝纹",
+        tags: ["民间艺术", "剪纸", "吉祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹 (4).jpg",
+        title: "八宝纹",
+        tags: ["民间艺术", "剪纸", "吉祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹 (5).jpg",
+        title: "八宝纹",
+        tags: ["民间艺术", "剪纸", "吉祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹 (6).jpg",
+        title: "八宝纹",
+        tags: ["民间艺术", "剪纸", "吉祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（白海螺、平安）.jpg",
+        title: "白海螺",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（宝瓶，寓意平安）.jpg",
+        title: "宝瓶",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（宝伞.平安）.jpg",
+        title: "宝伞",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（吉祥结，寓意平安）.jpg",
+        title: "吉祥结",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（金法轮，寓意平安）.jpg",
+        title: "金法轮",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（金鱼，寓意平安）.jpg",
+        title: "金鱼",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（莲花，寓意平安） (2).jpg",
+        title: "莲花",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹（胜利幢，寓意平安）.jpg",
+        title: "胜利幢",
+        tags: ["民间艺术", "剪纸", "平安"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八宝纹+莲花（“八宝呈祥”）.jpg",
+        title: "八宝纹+莲花",
+        tags: ["民间艺术", "剪纸", "八宝呈祥"],
+        alt: "八宝纹"
+      },
+      {
+        src: "images/八卦纹（避邪纳福）.jpg",
+        title: "八卦纹",
+        tags: ["民间艺术", "剪纸", "避邪纳福"],
+        alt: "八卦纹"
+      },
+      {
+        src: "images/回纹（“富贵不断头”）.jpg",
+        title: "回纹",
+        tags: ["民间艺术", "剪纸", "富贵"],
+        alt: "回纹"
+      },
+      {
+        src: "images/扣碗纹（两碗相扣，象征圆满）.jpg",
+        title: "扣碗纹",
+        tags: ["民间艺术", "剪纸", "圆满"],
+        alt: "扣碗纹"
+      },
+      {
+        src: "images/盘长结（“结”谐音“吉”，象征连绵不断）.jpg",
+        title: "盘长结",
+        tags: ["民间艺术", "剪纸", "连绵不断"],
+        alt: "盘长结"
+      },
+      {
+        src: "images/如意纹.jpg",
+        title: "如意纹",
+        tags: ["民间艺术", "剪纸", "如意"],
+        alt: "如意纹"
+      },
+      {
+        src: "images/万字纹+回纹（“万寿无疆、富贵不断”）.jpg",
+        title: "万字纹+回纹",
+        tags: ["民间艺术", "剪纸", "富贵不断"],
+        alt: "万字纹+回纹"
+      },
+      {
+        src: "images/祥云纹（“天降祥瑞”）.jpg",
+        title: "祥云纹",
+        tags: ["民间艺术", "剪纸", "天降祥瑞"],
+        alt: "祥云纹"
+      },
+      {
+        src: "images/“獬豸”，象征公正避邪.jpg",
+        title: "獬豸",
+        tags: ["民间艺术", "剪纸", "公正避邪"],
+        alt: "獬豸"
+      },
+      {
+        src: "images/艾草+菖蒲（象征驱毒）.jpg",
+        title: "艾草+菖蒲",
+        tags: ["民间艺术", "剪纸", "象征驱毒"],
+        alt: "艾草+菖蒲"
+      },
+      {
+        src: "images/北方“门神秦琼尉迟恭”（手持兵器，怒目圆睁） (2).jpg",
+        title: "门神秦琼尉迟恭",
+        tags: ["民间艺术", "剪纸", "门神"],
+        alt: "门神秦琼尉迟恭"
+      },
+      {
+        src: "images/北方“门神秦琼尉迟恭”（手持兵器，怒目圆睁）.jpg",
+        title: "门神秦琼尉迟恭",
+        tags: ["民间艺术", "剪纸", "门神"],
+        alt: "门神秦琼尉迟恭"
+      },
+      {
+        src: "images/葫芦+符咒（民间认为葫芦能“收邪”）.jpg",
+        title: "葫芦+符咒",
+        tags: ["民间艺术", "剪纸", "收邪"],
+        alt: "葫芦+符咒"
+      },
+      {
+        src: "images/老虎（“虎”为百兽之王，镇宅避邪）.jpg",
+        title: "老虎",
+        tags: ["民间艺术", "剪纸", "镇宅避邪"],
+        alt: "老虎"
+      },
+      {
+        src: "images/老虎+艾草（“驱邪避灾”）.jpg",
+        title: "老虎+艾草",
+        tags: ["民间艺术", "剪纸", "驱邪避灾"],
+        alt: "老虎+艾草"
+      },
+      {
+        src: "images/门神.jpg",
+        title: "门神",
+        tags: ["民间艺术", "剪纸", "镇宅避邪"],
+        alt: "门神"
+      },
+      {
+        src: "images/南方“镇宅狮”（狮子踩绣球）.jpg",
+        title: "镇宅狮",
+        tags: ["民间艺术", "剪纸", "镇宅避邪"],
+        alt: "镇宅狮"
+      },
+      {
+        src: "images/南方“镇宅狮”（守护家宅） (2).jpg",
+        title: "镇宅狮",
+        tags: ["民间艺术", "剪纸", "镇宅避邪"],
+        alt: "镇宅狮"
+      },
+      {
+        src: "images/南方“镇宅狮”（守护家宅）.jpg",
+        title: "镇宅狮",
+        tags: ["民间艺术", "剪纸", "守护家宅"],
+        alt: "镇宅狮"
+      },
+      {
+        src: "images/五毒纹（壁虎）.jpg",
+        title: "五毒纹",
+        tags: ["民间艺术", "剪纸", "壁虎"],
+        alt: "五毒纹"
+      },
+      {
+        src: "images/五毒纹（蛇）.jpg",
+        title: "五毒纹",
+        tags: ["民间艺术", "剪纸", "蛇"],
+        alt: "五毒纹"
+      },
+      {
+        src: "images/五毒纹（蜈蚣）.jpg",
+        title: "五毒纹",
+        tags: ["民间艺术", "剪纸", "蜈蚣"],
+        alt: "五毒纹"
+      },
+      {
+        src: "images/五毒纹（蝎）.jpg",
+        title: "五毒纹",
+        tags: ["民间艺术", "剪纸", "蝎"],
+        alt: "五毒纹"
+      },
+      {
+        src: "images/钟馗+蝙蝠（“钟馗纳福”） (2).jpg",
+        title: "钟馗+蝙蝠",
+        tags: ["民间艺术", "剪纸", "钟馗纳福"],
+        alt: "钟馗+蝙蝠"
+      },
+      {
+        src: "images/钟馗+蝙蝠（“钟馗纳福”）.jpg",
+        title: "钟馗+蝙蝠",
+        tags: ["民间艺术", "剪纸", "钟馗纳福"],
+        alt: "钟馗+蝙蝠"
+      },
+      {
+        src: "images/（“百财”）.jpg",
+        title: "百财",
+        tags: ["民间艺术", "剪纸", "百财"],
+        alt: "百财"
+      },
+      {
+        src: "images/“蛇盘兔”（“蛇盘兔必定富”，象征婚配富裕）.jpg",
+        title: "蛇盘兔",
+        tags: ["民间艺术", "剪纸", "婚配富裕"],
+        alt: "蛇盘兔"
+      },
+      {
+        src: "images/安居乐业.jpg",
+        title: "燕子",
+        tags: ["民间艺术", "剪纸", "安居乐业"],
+        alt: "燕子"
+      },
+      {
+        src: "images/葫芦（“福禄”，葫芦多籽也象征多子）.jpg",
+        title: "葫芦",
+        tags: ["民间艺术", "剪纸", "福禄"],
+        alt: "葫芦"
+      },
+      {
+        src: "images/辣椒+玉米（“红红火火金玉满堂”）.jpg",
+        title: "辣椒+玉米",
+        tags: ["民间艺术", "剪纸", "金玉满堂"],
+        alt: "辣椒+玉米"
+      },
+      {
+        src: "images/连年有余 (2).jpg",
+        title: "连年有余",
+        tags: ["民间艺术", "剪纸", "连年有余"],
+        alt: "连年有余"
+      },
+      {
+        src: "images/连年有余.jpg",
+        title: "连年有余",
+        tags: ["民间艺术", "剪纸", "连年有余"],
+        alt: "连年有余"
+      },
+      {
+        src: "images/莲花+鱼+铜钱（“连年有余财”）.jpg",
+        title: "莲花+鱼+铜钱",
+        tags: ["民间艺术", "剪纸", "连年有余"],
+        alt: "莲花+鱼+铜钱"
+      },
+      {
+        src: "images/事事如意.jpg",
+        title: "事事如意",
+        tags: ["民间艺术", "剪纸", "事事如意"],
+        alt: "事事如意"
+      },
+      {
+        src: "images/柿子+如意+百合（“事事如意百年好合”）.jpg",
+        title: "柿子+如意+百合",
+        tags: ["民间艺术", "剪纸", "事事如意"],
+        alt: "柿子+如意+百合"
+      },
+      {
+        src: "images/枣+栗子+花生（“早立子”）.jpg",
+        title: "枣+栗子+花生",
+        tags: ["民间艺术", "剪纸", "早立子"],
+        alt: "枣+栗子+花生"
+      },
+      {
+        src: "images/北方“八卦纹”（驱邪纳福）.jpg",
+        title: "北方八卦纹",
+        tags: ["民间艺术", "剪纸", "驱邪纳福"],
+        alt: "北方八卦纹"
+      },
+      {
+        src: "images/回字纹（富贵不断）.jpg",
+        title: "回字纹",
+        tags: ["民间艺术", "剪纸", "富贵不断"],
+        alt: "回字纹"
+      },
+      {
+        src: "images/米字纹（丰收）.jpg",
+        title: "米字纹",
+        tags: ["民间艺术", "剪纸", "丰收"],
+        alt: "米字纹"
+      },
+      {
+        src: "images/南方“盘长纹”（吉祥永恒）.jpg",
+        title: "南方盘长纹",
+        tags: ["民间艺术", "剪纸", "吉祥永恒"],
+        alt: "南方盘长纹"
+      },
+      {
+        src: "images/曲线纹（象征流水、祥云）.jpg",
+        title: "曲线纹",
+        tags: ["民间艺术", "剪纸", "象征流水、祥云"],
+        alt: "曲线纹"
+      },
+      {
+        src: "images/十字纹（辟邪）.jpg",
+        title: "十字纹",
+        tags: ["民间艺术", "剪纸", "辟邪"],
+        alt: "十字纹"
+      },
+      {
+        src: "images/太极纹（阴阳鱼，象征平衡）.jpg",
+        title: "太极纹",
+        tags: ["民间艺术", "剪纸", "阴阳鱼", "象征平衡"],
+        alt: "太极纹"
+      },
+      {
+        src: "images/太阳纹（光芒四射）.jpg",
+        title: "太阳纹",
+        tags: ["民间艺术", "剪纸", "光芒四射"],
+        alt: "太阳纹"
+      },
+      {
+        src: "images/卍字纹（“万”，寓意万寿无疆）.jpg",
+        title: "卍字纹",
+        tags: ["民间艺术", "剪纸", "万寿无疆"],
+        alt: "卍字纹"
+      },
+      {
+        src: "images/纹（折线几何，象征力量）.jpg",
+        title: "纹",
+        tags: ["民间艺术", "剪纸", "象征力量"],
+        alt: "纹"
+      },
+      {
+        src: "images/二方连续：回纹边框（左右重复）.jpg",
+        title: "回纹边框",
+        tags: ["民间艺术", "剪纸", "回纹边框"],
+        alt: "回纹边框"
+      },
+      {
+        src: "images/何连续纹（菱形、三角形重复）.jpg",
+        title: "何连续纹",
+        tags: ["民间艺术", "剪纸", "菱形、三角形"],
+        alt: "何连续纹"
+      },
+      {
+        src: "images/蝴蝶穿花满铺（蝴蝶穿梭花丛）.jpg",
+        title: "蝴蝶穿花满铺",
+        tags: ["民间艺术", "剪纸", "蝴蝶穿花满铺"],
+        alt: "蝴蝶穿花满铺"
+      },
+      {
+        src: "images/蝴蝶穿花满铺.jpg",
+        title: "蝴蝶穿花满铺",
+        tags: ["民间艺术", "剪纸", "蝴蝶穿花满铺"],
+        alt: "蝴蝶穿花满铺"
+      },
+      {
+        src: "images/花草连续纹（如忍冬纹重复） (2).jpg",
+        title: "花草连续纹",
+        tags: ["民间艺术", "剪纸", "花草连续纹"],
+        alt: "花草连续纹"
+      },
+      {
+        src: "images/回纹边框.jpg",
+        title: "回纹边框",
+        tags: ["民间艺术", "剪纸", "回纹边框"],
+        alt: "回纹边框"
+      },
+      {
+        src: "images/四方连续：小碎花满铺（均匀分布）.jpg",
+        title: "四方连续：小碎花满铺",
+        tags: ["民间艺术", "剪纸", "四方连续"],
+        alt: "四方连续：小碎花满铺"
+      },
+      {
+        src: "images/铜钱纹满铺（财源广进）.jpg",
+        title: "铜钱纹",
+        tags: ["民间艺术", "剪纸", "铜钱纹"],
+        alt: "铜钱纹"
+      },
+      {
+        src: "images/铜钱纹满铺.jpg",
+        title: "铜钱纹",
+        tags: ["民间艺术", "剪纸", "铜钱纹"],
+        alt: "铜钱纹"
+      },
+      {
+        src: "images/小碎花重复.jpg",
+        title: "小碎花重复",
+        tags: ["民间艺术", "剪纸", "小碎花重复"],
+        alt: "小碎花重复"
+      },
+      {
+        src: "images/鱼戏莲叶边框（鱼与莲花交替）.jpg",
+        title: "鱼戏莲叶边框",
+        tags: ["民间艺术", "剪纸", "鱼戏莲叶"],
+        alt: "鱼戏莲叶边框"
+      },
+      {
+        src: "images/八角团花（中心八瓣花，外围万字纹）.jpg",
+        title: "八角团花",
+        tags: ["民间艺术", "剪纸", "八角团花"],
+        alt: "八角团花"
+      },
+      {
+        src: "images/北方“万字流水纹团花”（万字纹连续排列，象征福运流长）.jpg",
+        title: "万字流水纹团花",
+        tags: ["民间艺术", "剪纸", "万字流水纹团花"],
+        alt: "万字流水纹团花"
+      },
+      {
+        src: "images/单一团花 八瓣花.jpg",
+        title: "单一团花",
+        tags: ["民间艺术", "剪纸", "单一团花"],
+        alt: "单一团花"
+      },
+      {
+        src: "images/单一团花（中心对称，如八瓣花、万字纹团花）.jpg",
+        title: "单一团花",
+        tags: ["民间艺术", "剪纸", "单一团花"],
+        alt: "单一团花"
+      },
+      {
+        src: "images/复合团花（中心+多层环绕，如“花中套花”“鸟绕花”）.jpg",
+        title: "复合团花",
+        tags: ["民间艺术", "剪纸", "复合团花"],
+        alt: "复合团花"
+      },
+      {
+        src: "images/角隅团花（方形四角的团花，适合窗花四角）.jpg",
+        title: "角隅团花",
+        tags: ["民间艺术", "剪纸", "角隅团花"],
+        alt: "角隅团花"
+      },
+      {
+        src: "images/角隅团花（方形四角牡丹纹）.jpg",
+        title: "角隅团花",
+        tags: ["民间艺术", "剪纸", "角隅团花"],
+        alt: "角隅团花"
+      },
+      {
+        src: "images/六边团花（中心莲花，环绕鱼纹）.jpg",
+        title: "六边团花",
+        tags: ["民间艺术", "剪纸", "六边团花"],
+        alt: "六边团花"
+      },
+      {
+        src: "images/南方“四季花卉团花”（春兰夏荷秋菊冬梅）.jpg",
+        title: "四季花卉",
+        tags: ["民间艺术", "剪纸", "四季花卉"],
+        alt: "四季花卉"
+      },
+      {
+        src: "images/极简线条（直线、弧线组合，无具体指向）.jpg",
+        title: "极简线条",
+        tags: ["民间艺术", "剪纸", "极简线条"],
+        alt: "极简线条"
+      },
+      {
+        src: "images/几何块面（圆形、三角形、方形拼接）.jpg",
+        title: "几何块面",
+        tags: ["民间艺术", "剪纸", "几何块面"],
+        alt: "几何块面"
+      },
+      {
+        src: "images/几何块面：圆形+方形（简洁现代） .png",
+        title: "几何块面",
+        tags: ["民间艺术", "剪纸", "几何块面"],
+        alt: "几何块面"
+      },
+      {
+        src: "images/几何块面：圆形+方形（简洁现代2）.png",
+        title: "几何块面",
+        tags: ["民间艺术", "剪纸", "几何块面"],
+        alt: "几何块面"
+      },
+      {
+        src: "images/渐变镂空（疏密变化的抽象形状）.jpg",
+        title: "渐变镂空",
+        tags: ["民间艺术", "剪纸", "渐变镂空"],
+        alt: "渐变镂空"
+      },
+      {
+        src: "images/渐变镂空：疏密变化的抽象云纹 .png",
+        title: "渐变镂空",
+        tags: ["民间艺术", "剪纸", "渐变镂空"],
+        alt: "渐变镂空"
+      },
+      {
+        src: "images/渐变镂空2.png",
+        title: "渐变镂空",
+        tags: ["民间艺术", "剪纸", "渐变镂空"],
+        alt: "渐变镂空"
+      },
+      {
+        src: "images/莫比乌斯环+龙凤纹（无限循环）.png",
+        title: "莫比乌斯环+龙凤纹",
+        tags: ["民间艺术", "剪纸", "莫比乌斯环+龙凤纹"],
+        alt: "莫比乌斯环+龙凤纹"
+      },
+      {
+        src: "images/曲线+直线（动感韵律）.png",
+        title: "曲线+直线",
+        tags: ["民间艺术", "剪纸", "曲线+直线"],
+        alt: "曲线+直线"
+      },
+      {
+        src: "images/榫卯建筑+金属肌理（传统与科技结合）.png",
+        title: "榫卯建筑+金属肌理",
+        tags: ["民间艺术", "剪纸", "榫卯建筑+金属肌理"],
+        alt: "榫卯建筑+金属肌理"
+      },
+      {
+        src: "images/曲线+直线（动感韵律）.jpg",
+        title: "动感韵律",
+        tags: ["民间艺术", "剪纸", "动感韵律"],
+        alt: "动感韵律"
+      },
+      {
+        src: "images/花木兰（替父从军）.jpg",
+        title: "花木兰",
+        tags: ["民间艺术", "剪纸", "花木兰"],
+        alt: "花木兰"
+      },
+      {
+        src: "images/孔子（讲学）.jpg",
+        title: "孔子",
+        tags: ["民间艺术", "剪纸", "孔子"],
+        alt: "孔子"
+      },
+      {
+        src: "images/岳飞（精忠报国）.jpg",
+        title: "岳飞",
+        tags: ["民间艺术", "剪纸", "岳飞"],
+        alt: "岳飞"
+      },
+      {
+        src: "images/诸葛亮（空城计）.jpg",
+        title: "诸葛亮",
+        tags: ["民间艺术", "剪纸", "诸葛亮"],
+        alt: "诸葛亮"
+      },
+      {
+        src: "images/“窑洞剪纸”（体现陕北民居与农耕生活）.jpg",
+        title: "窑洞剪纸",
+        tags: ["民间艺术", "剪纸", "窑洞剪纸"],
+        alt: "窑洞剪纸"
+      },
+      {
+        src: "images/捕鱼图（渔网+鱼篓+鸬鹚）.jpg",
+        title: "捕鱼图",
+        tags: ["民间艺术", "剪纸", "捕鱼图"],
+        alt: "捕鱼图"
+      },
+      {
+        src: "images/春耕图（牛拉犁，农夫播种）.jpg",
+        title: "春耕图",
+        tags: ["民间艺术", "剪纸", "春耕图"],
+        alt: "春耕图"
+      },
+      {
+        src: "images/纺织图（妇女摇纺车，孩童递棉线）.jpg",
+        title: "纺织图",
+        tags: ["民间艺术", "剪纸", "纺织图"],
+        alt: "纺织图"
+      },
+      {
+        src: "images/夫妻织布.jpg",
+        title: "夫妻织布",
+        tags: ["民间艺术", "剪纸", "夫妻织布"],
+        alt: "夫妻织布"
+      },
+      {
+        src: "images/孩童放风筝（体现“家和”）.jpg",
+        title: "孩童放风筝",
+        tags: ["民间艺术", "剪纸", "孩童放风筝"],
+        alt: "孩童放风筝"
+      },
+      {
+        src: "images/南方“水乡养蚕”（蚕匾+桑叶+蚕娘）.jpg",
+        title: "南方“水乡养蚕”",
+        tags: ["民间艺术", "剪纸", "南方“水乡养蚕”"],
+        alt: "南方“水乡养蚕”"
+      },
+      {
+        src: "images/婆媳做饭.jpg",
+        title: "婆媳做饭",
+        tags: ["民间艺术", "剪纸", "婆媳做饭"],
+        alt: "婆媳做饭"
+      },
+      {
+        src: "images/祖孙嬉戏.jpg",
+        title: "祖孙嬉戏",
+        tags: ["民间艺术", "剪纸", "祖孙嬉戏"],
+        alt: "祖孙嬉戏"
+      },
+      {
+        src: "images/祖孙嬉戏.jpg",
+        title: "祖孙嬉戏",
+        tags: ["民间艺术", "剪纸", "祖孙嬉戏"],
+        alt: "祖孙嬉戏"
+      },
+      {
+        src: "images/“陕北腰鼓”（舞者挥舞鼓槌，动作豪放）.jpg",
+        title: "“陕北腰鼓”",
+        tags: ["民间艺术", "剪纸", "“陕北腰鼓”"],
+        alt: "“陕北腰鼓”"
+      },
+      {
+        src: "images/踩高跷.jpg",
+        title: "踩高跷",
+        tags: ["民间艺术", "剪纸", "踩高跷"],
+        alt: "踩高跷"
+      },
+      {
+        src: "images/春节贴春联（人物手持对联，鞭炮齐鸣）.jpg",
+        title: "春节贴春联",
+        tags: ["民间艺术", "剪纸", "春节贴春联"],
+        alt: "春节贴春联"
+      },
+      {
+        src: "images/端午赛龙舟（龙舟+鼓手+岸边观众）.jpg",
+        title: "端午赛龙舟",
+        tags: ["民间艺术", "剪纸", "端午赛龙舟"],
+        alt: "端午赛龙舟"
+      },
+      {
+        src: "images/赛龙舟（端午）.jpg",
+        title: "端午赛龙舟",
+        tags: ["民间艺术", "剪纸", "端午赛龙舟"],
+        alt: "端午赛龙舟"
+      },
+      {
+        src: "images/赏月吃月饼（中秋）.jpg",
+        title: "赏月吃月饼",
+        tags: ["民间艺术", "剪纸", "赏月吃月饼"],
+        alt: "赏月吃月饼"
+      },
+      {
+        src: "images/舞龙舞狮（春节）.jpg",
+        title: "舞龙舞狮",
+        tags: ["民间艺术", "剪纸", "舞龙舞狮"],
+        alt: "舞龙舞狮"
+      },
+      {
+        src: "images/捕鱼图（渔网+鱼篓+鸬鹚）.jpg",
+        title: "捕鱼图",
+        tags: ["民间艺术", "剪纸", "捕鱼图"],
+        alt: "捕鱼图"
+      },
+      {
+        src: "images/春耕图（牛拉犁，农夫播种）.jpg",
+        title: "春耕图",
+        tags: ["民间艺术", "剪纸", "春耕图"],
+        alt: "春耕图"
+      },
+      {
+        src: "images/纺织（纺纱、织布）.jpg",
+        title: "纺织图",
+        tags: ["民间艺术", "剪纸", "纺织图"],
+        alt: "纺织图"
+      },
+      {
+        src: "images/纺织图（妇女摇纺车，孩童递棉线）.jpg",
+        title: "纺织图",
+        tags: ["民间艺术", "剪纸", "纺织图"],
+        alt: "纺织图"
+      },
+      {
+        src: "images/赶集（买卖货物）.jpg",
+        title: "赶集",
+        tags: ["民间艺术", "剪纸", "赶集"],
+        alt: "赶集"
+      },
+      {
+        src: "images/磨豆腐（北方民俗）.jpg",
+        title: "磨豆腐",
+        tags: ["民间艺术", "剪纸", "磨豆腐"],
+        alt: "磨豆腐"
+      },
+      {
+        src: "images/南方“采茶女”（竹篓+茶树+蝴蝶）.jpg",
+        title: "南方“采茶女”",
+        tags: ["民间艺术", "剪纸", "南方“采茶女”"],
+        alt: "南方“采茶女”"
+      },
+      {
+        src: "images/农耕（插秧、收割）.jpg",
+        title: "农耕",
+        tags: ["民间艺术", "剪纸", "农耕"],
+        alt: "农耕"
+      },
+      {
+        src: "images/秋收打谷（农民+稻穗+石磨.jpg",
+        title: "秋收打谷",
+        tags: ["民间艺术", "剪纸", "秋收打谷"],
+        alt: "秋收打谷"
+      },
+      {
+        src: "images/渔猎（捕鱼、打猎）.jpg",
+        title: "渔猎",
+        tags: ["民间艺术", "剪纸", "渔猎"],
+        alt: "渔猎"
+      },
+      {
+        src: "images/“白蛇传”（白蛇、青蛇、雷峰塔）.jpg",
+        title: "“白蛇传”",
+        tags: ["民间艺术", "剪纸", "“白蛇传”"],
+        alt: "“白蛇传”"
+      },
+      {
+        src: "images/“牛郎织女鹊桥会”（牛、喜鹊、银河）.jpg",
+        title: "“牛郎织女鹊桥会”",
+        tags: ["民间艺术", "剪纸", "“牛郎织女鹊桥会”"],
+        alt: "“牛郎织女鹊桥会”"
+      },
+      {
+        src: "images/八仙（铁拐李、吕洞宾等，各持法器）.jpg",
+        title: "八仙",
+        tags: ["民间艺术", "剪纸", "八仙"],
+        alt: "八仙"
+      },
+      {
+        src: "images/八仙过海（各持法器，祥云环绕）.jpg",
+        title: "八仙过海",
+        tags: ["民间艺术", "剪纸", "八仙过海"],
+        alt: "八仙过海"
+      },
+      {
+        src: "images/嫦娥奔月（配玉兔、桂树）.jpg",
+        title: "嫦娥奔月",
+        tags: ["民间艺术", "剪纸", "嫦娥奔月"],
+        alt: "嫦娥奔月"
+      },
+      {
+        src: "images/福禄寿三星（三位神仙组合）.jpg",
+        title: "福禄寿三星",
+        tags: ["民间艺术", "剪纸", "福禄寿三星"],
+        alt: "福禄寿三星"
+      },
+      {
+        src: "images/哪吒闹海（手持乾坤圈，脚踩风火轮）.jpg",
+        title: "哪吒闹海",
+        tags: ["民间艺术", "剪纸", "哪吒闹海"],
+        alt: "哪吒闹海"
+      },
+      {
+        src: "images/哪吒闹海.jpg",
+        title: "哪吒闹海",
+        tags: ["民间艺术", "剪纸", "哪吒闹海"],
+        alt: "哪吒闹海"
+      },
+      {
+        src: "images/女娲补天（五色石+巨龙）.jpg",
+        title: "女娲补天",
+        tags: ["民间艺术", "剪纸", "女娲补天"],
+        alt: "女娲补天"
+      },
+      {
+        src: "images/女娲补天.jpg",
+        title: "女娲补天",
+        tags: ["民间艺术", "剪纸", "女娲补天"],
+        alt: "女娲补天"
+      },
+      {
+        src: "images/盘古开天.jpg",
+        title: "盘古开天",
+        tags: ["民间艺术", "剪纸", "盘古开天"],
+        alt: "盘古开天"
+      },
+      {
+        src: "images/《红楼梦》黛玉葬花（黛玉持花锄，花瓣飘落）.jpg",
+        title: "《红楼梦》黛玉葬花",
+        tags: ["民间艺术", "剪纸", "《红楼梦》黛玉葬花"],
+        alt: "《红楼梦》黛玉葬花"
+      },
+      {
+        src: "images/《红楼梦》金陵十二钗.jpg",
+        title: "《红楼梦》金陵十二钗",
+        tags: ["民间艺术", "剪纸", "《红楼梦》金陵十二钗"],
+        alt: "《红楼梦》金陵十二钗"
+      },
+      {
+        src: "images/《三国演义》刘关张.jpg",
+        title: "《三国演义》刘关张",
+        tags: ["民间艺术", "剪纸", "《三国演义》刘关张"],
+        alt: "《三国演义》刘关张"
+      },
+      {
+        src: "images/《水浒传》武松打虎.jpg",
+        title: "《水浒传》武松打虎",
+        tags: ["民间艺术", "剪纸", "《水浒传》武松打虎"],
+        alt: "《水浒传》武松打虎"
+      },
+      {
+        src: "images/《西游记》师徒四人.jpg",
+        title: "《西游记》师徒四人",
+        tags: ["民间艺术", "剪纸", "《西游记》师徒四人"],
+        alt: "《西游记》师徒四人"
+      },
+      {
+        src: "images/《西游记》三大白骨精.jpg",
+        title: "《西游记》三大白骨精",
+        tags: ["民间艺术", "剪纸", "《西游记》三大白骨精"],
+        alt: "《西游记》三大白骨精"
+      },
+      {
+        src: "images/丑（喜剧角色）.jpg",
+        title: "丑（喜剧角色）",
+        tags: ["民间艺术", "剪纸", "丑（喜剧角色）"],
+        alt: "丑（喜剧角色）"
+      },
+      {
+        src: "images/旦（如穆桂英）.jpg",
+        title: "穆桂英",
+        tags: ["民间艺术", "剪纸", "穆桂英"],
+        alt: "旦（穆桂英）"
+      },
+      {
+        src: "images/京剧《贵妃醉酒》（杨贵妃持酒壶，宫女环绕）.jpg",
+        title: "京剧《贵妃醉酒》",
+        tags: ["民间艺术", "剪纸", "京剧《贵妃醉酒》"],
+        alt: "京剧《贵妃醉酒》"
+      },
+      {
+        src: "images/净（如包公）.jpg",
+        title: "包公",
+        tags: ["民间艺术", "剪纸", "包公"],
+        alt: "净（包公）"
+      },
+      {
+        src: "images/生（如关羽）.jpg",
+        title: "关羽",
+        tags: ["民间艺术", "剪纸", "关羽"],
+        alt: "生（关羽）"
+      },
+      {
+        src: "images/越剧《梁祝》（化蝶场景，蝴蝶双飞）.jpg",
+        title: "越剧《梁祝》",
+        tags: ["民间艺术", "剪纸", "越剧《梁祝》"],
+        alt: "越剧《梁祝》"
+      },
+      {
+        src: "images/越剧《梁祝》（化蝶场景，蝴蝶双飞）.jpg",
+        title: "越剧《梁祝》",
+        tags: ["民间艺术", "剪纸", "越剧《梁祝》"],
+        alt: "越剧《梁祝》"
+      },
+      {
+        src: "images/堆雪人.png",
+        title: "堆雪人",
+        tags: ["民间艺术", "剪纸", "堆雪人"],
+        alt: "堆雪人"
+      },
+      {
+        src: "images/放风筝.png",
+        title: "放风筝",
+        tags: ["民间艺术", "剪纸", "放风筝"],
+        alt: "放风筝"
+      },
+      {
+        src: "images/过家家.png",
+        title: "过家家",
+        tags: ["民间艺术", "剪纸", "过家家"],
+        alt: "过家家"
+      },
+      {
+        src: "images/踢毽子.png",
+        title: "踢毽子",
+        tags: ["民间艺术", "剪纸", "踢毽子"],
+        alt: "踢毽子"
+      },
+      {
+        src: "images/玩陀螺.png",
+        title: "玩陀螺",
+        tags: ["民间艺术", "剪纸", "玩陀螺"],
+        alt: "玩陀螺"
+      },
+      {
+        src: "images/捉蝴蝶.png",
+        title: "捉蝴蝶",
+        tags: ["民间艺术", "剪纸", "捉蝴蝶"],
+        alt: "捉蝴蝶"
+      },
+      {
+        src: "images/阖家欢乐.jpg",
+        title: "阖家欢乐",
+        tags: ["民间艺术", "剪纸", "阖家欢乐"],
+        alt: "阖家欢乐"
+      },
+      {
+        src: "images/洞房（龙凤喜床+新人）.jpg",
+        title: "洞房",
+        tags: ["民间艺术", "剪纸", "洞房"],
+        alt: "洞房"
+      },
+      {
+        src: "images/婚礼花轿（花轿+吹鼓手+迎亲队伍）.jpg",
+        title: "婚礼花轿",
+        tags: ["民间艺术", "剪纸", "婚礼花轿"],
+        alt: "婚礼花轿"
+      },
+      {
+        src: "images/满月酒（婴儿戴长命锁，亲友送礼）.jpg",
+        title: "满月酒",
+        tags: ["民间艺术", "剪纸", "满月酒"],
+        alt: "满月酒"
+      },
+      {
+        src: "images/南方“送子观音”（观音抱婴儿，祥云环绕）.jpg",
+        title: "南方“送子观音”",
+        tags: ["民间艺术", "剪纸", "南方“送子观音”"],
+        alt: "南方“送子观音”"
+      },
+      {
+        src: "images/提亲场景（媒人牵线，双方家长交谈）.jpg",
+        title: "提亲场景",
+        tags: ["民间艺术", "剪纸", "提亲场景"],
+        alt: "提亲场景"
+      },
+      {
+        src: "images/添丁（婴儿+“麒麟送子”）.jpg",
+        title: "添丁",
+        tags: ["民间艺术", "剪纸", "添丁"],
+        alt: "添丁"
+      },
+      {
+        src: "images/添丁报喜（石榴+婴儿襁褓）.jpg",
+        title: "添丁",
+        tags: ["民间艺术", "剪纸", "添丁"],
+        alt: "添丁"
+      },
+      {
+        src: "images/提亲（媒人+双方家长）.png",
+        title: "提亲",
+        tags: ["民间艺术", "剪纸", "提亲"],
+        alt: "提亲"
+      },
+      {
+        src: "images/庙会.png",
+        title: "庙会",
+        tags: ["民间艺术", "剪纸", "庙会"],
+        alt: "庙会"
+      },
+      {
+        src: "images/婚礼（花轿+新人+红双喜）.png",
+        title: "婚礼",
+        tags: ["民间艺术", "剪纸", "婚礼"],
+        alt: "婚礼"
+      },
+      {
+        src: "images/寿宴（寿星+寿桃+宾客）.png",
+        title: "寿宴",
+        tags: ["民间艺术", "剪纸", "寿宴"],
+        alt: "寿宴"
+      },
+      {
+        src: "images/北方“社火巡游”（舞龙舞狮+旱船）.jpg",
+        title: "北方“社火巡游”",
+        tags: ["民间艺术", "剪纸", "北方“社火巡游”"],
+        alt: "北方“社火巡游”"
+      },
+      {
+        src: "images/春节团圆（全家围坐吃年夜饭）.jpg",
+        title: "春节团圆",
+        tags: ["民间艺术", "剪纸", "春节团圆"],
+        alt: "春节团圆"
+      },
+      {
+        src: "images/庙会戏台（戏曲表演+围观人群）.jpg",
+        title: "庙会戏台",
+        tags: ["民间艺术", "剪纸", "庙会戏台"],
+        alt: "庙会戏台"
+      },
+      {
+        src: "images/南方“妈祖祭祀”（妈祖像+香火+信众）.jpg",
+        title: "南方“妈祖祭祀”",
+        tags: ["民间艺术", "剪纸", "南方“妈祖祭祀”"],
+        alt: "南方“妈祖祭祀”"
+      },
+      {
+        src: "images/寿宴场景（寿星坐中，子孙拜寿）.jpg",
+        title: "寿宴场景",
+        tags: ["民间艺术", "剪纸", "寿宴场景"],
+        alt: "寿宴场景"
+      },
+      {
+        src: "images/养蚕（蚕娘+桑叶）.png",
+        title: "养蚕",
+        tags: ["民间艺术", "剪纸", "养蚕"],
+        alt: "养蚕"
+      },
+      {
+        src: "images/打谷（谷场+农民）.png",
+        title: "打谷",
+        tags: ["民间艺术", "剪纸", "打谷"],
+        alt: "打谷"
+      },
+      {
+        src: "images/纺车织布（纺车+织女）.png",
+        title: "纺车织布",
+        tags: ["民间艺术", "剪纸", "纺车织布"],
+        alt: "纺车织布"
+      },
+      {
+        src: "images/磨面(1) .png",
+        title: "磨面",
+        tags: ["民间艺术", "剪纸", "磨面"],
+        alt: "磨面"
+      },
+      {
+        src: "images/磨面(2).png",
+        title: "磨面",
+        tags: ["民间艺术", "剪纸", "磨面"],
+        alt: "磨面"
+      },
+      {
+        src: "images/田间耕作 (1).jpg",
+        title: "田间耕作",
+        tags: ["民间艺术", "剪纸", "田间耕作"],
+        alt: "田间耕作"
+      },
+      {
+        src: "images/田间耕作（牛拉犁+农夫）.png",
+        title: "田间耕作",
+        tags: ["民间艺术", "剪纸", "田间耕作"],
+        alt: "田间耕作"
+      },
+      {
+        src: "images/环保主题：树叶+水滴（绿色生态） (2).png",
+        title: "环保主题",
+        tags: ["民间艺术", "剪纸", "环保主题"],
+        alt: "环保主题"
+      },
+      {
+        src: "images/环保主题：树叶+水滴（绿色生态）.png",
+        title: "环保主题",
+        tags: ["民间艺术", "剪纸", "环保主题"],
+        alt: "环保主题"
+      },
+      {
+        src: "images/火箭+卫星（科技感）.png",
+        title: "火箭+卫星",
+        tags: ["民间艺术", "剪纸", "火箭+卫星"],
+        alt: "火箭+卫星"
+      },
+      {
+        src: "images/火炬+运动剪影（活力）.png",
+        title: "火炬+运动剪影",
+        tags: ["民间艺术", "剪纸", "火炬+运动剪影"],
+        alt: "火炬+运动剪影"
+      },
+      {
+        src: "images/龙年剪纸（龙戏珠+2024数字）.png",
+        title: "龙年剪纸",
+        tags: ["民间艺术", "剪纸", "龙年剪纸"],
+        alt: "龙年剪纸"
+      },
+      {
+        src: "images/周年庆：“10周年”+齿轮（工业风）.png",
+        title: "周年庆",
+        tags: ["民间艺术", "剪纸", "周年庆"],
+        alt: "周年庆"
+      },
+      {
+        src: "images/蝉.png",
+        title: "蝉",
+        tags: ["民间艺术", "剪纸", "蝉"],
+        alt: "蝉"
+      },
+      {
+        src: "images/丰收麦穗.png",
+        title: "丰收麦穗",
+        tags: ["民间艺术", "剪纸", "丰收麦穗"],
+        alt: "丰收麦穗"
+      },
+      {
+        src: "images/枫叶.png",
+        title: "枫叶",
+        tags: ["民间艺术", "剪纸", "枫叶"],
+        alt: "枫叶"
+      },
+      {
+        src: "images/桂花.png",
+        title: "桂花",
+        tags: ["民间艺术", "剪纸", "桂花"],
+        alt: "桂花"
+      },
+      {
+        src: "images/荷花2.jpg",
+        title: "荷花",
+        tags: ["民间艺术", "剪纸", "荷花"],
+        alt: "荷花"
+      },
+      {
+        src: "images/荷花.png",
+        title: "荷花",
+        tags: ["民间艺术", "剪纸", "荷花"],
+        alt: "荷花"
+      },
+      {
+        src: "images/梅花.png",
+        title: "梅花",
+        tags: ["民间艺术", "剪纸", "梅花"],
+        alt: "梅花"
+      },
+      {
+        src: "images/踏青.png",
+        title: "踏青",
+        tags: ["民间艺术", "剪纸", "踏青"],
+        alt: "踏青"
+      },
+      {
+        src: "images/围炉.png",
+        title: "围炉",
+        tags: ["民间艺术", "剪纸", "围炉"],
+        alt: "围炉"
+      },
+      {
+        src: "images/西瓜.png",
+        title: "西瓜",
+        tags: ["民间艺术", "剪纸", "西瓜"],
+        alt: "西瓜"
+      },
+      {
+        src: "images/雪花2.png",
+        title: "雪花",
+        tags: ["民间艺术", "剪纸", "雪花"],
+        alt: "雪花"
+      },
+      {
+        src: "images/雪花.png",
+        title: "雪花",
+        tags: ["民间艺术", "剪纸", "雪花"],
+        alt: "雪花"
+      },
+      {
+        src: "images/燕子.png",
+        title: "燕子",
+        tags: ["民间艺术", "剪纸", "燕子"],
+        alt: "燕子"
+      },
+      {
+        src: "images/燕子2.png",
+        title: "燕子",
+        tags: ["民间艺术", "剪纸", "燕子"],
+        alt: "燕子"
+      },
+      {
+        src: "images/樱花2.png",
+        title: "樱花",
+        tags: ["民间艺术", "剪纸", "樱花"],
+        alt: "樱花"
+      },
+      {
+        src: "images/樱花.png",
+        title: "樱花",
+        tags: ["民间艺术", "剪纸", "樱花"],
+        alt: "樱花"
+      },
+      {
+        src: "images/大寒：围炉+鞭炮（辞旧迎新）.png",
+        title: "大寒",
+        tags: ["民间艺术", "剪纸", "大寒"],
+        alt: "大寒"
+      },
+      {
+        src: "images/冬至.png",
+        title: "冬至",
+        tags: ["民间艺术", "剪纸", "冬至"],
+        alt: "冬至"
+      },
+      {
+        src: "images/冬至：饺子+汤圆（南北习俗）.png",
+        title: "冬至",
+        tags: ["民间艺术", "剪纸", "冬至"],
+        alt: "冬至"
+      },
+      {
+        src: "images/惊蛰：春雷+昆虫（万物苏醒）.png",
+        title: "惊蛰",
+        tags: ["民间艺术", "剪纸", "惊蛰"],
+        alt: "惊蛰"
+      },
+      {
+        src: "images/立春（芽苗）.png",
+        title: "立春",
+        tags: ["民间艺术", "剪纸", "立春"],
+        alt: "立春"
+      },
+      {
+        src: "images/立春：嫩芽破土+燕子（万物复苏）.png",
+        title: "立春",
+        tags: ["民间艺术", "剪纸", "立春"],
+        alt: "立春"
+      },
+      {
+        src: "images/清明（踏青）.png",
+        title: "清明",
+        tags: ["民间艺术", "剪纸", "清明"],
+        alt: "清明"
+      },
+      {
+        src: "images/雨水：雨水滴落+柳枝（滋润大地）.png",
+        title: "雨水",
+        tags: ["民间艺术", "剪纸", "雨水"],
+        alt: "雨水"
+      },
+      {
+        src: "images/丑牛.png",
+        title: "丑牛",
+        tags: ["民间艺术", "剪纸", "丑牛"],
+        alt: "丑牛"
+      },
+      {
+        src: "images/迪士尼公主剪纸化（现代萌系）.png",
+        title: "迪士尼公主",
+        tags: ["民间艺术", "剪纸", "迪士尼公主"],
+        alt: "迪士尼公主"
+      },
+      {
+        src: "images/国风动漫人物简化剪纸2.png",
+        title: "国风动漫人物",
+        tags: ["民间艺术", "剪纸", "国风动漫人物"],
+        alt: "国风动漫人物"
+      },
+      {
+        src: "images/国风动漫人物简化剪纸.png",
+        title: "国风动漫人物",
+        tags: ["民间艺术", "剪纸", "国风动漫人物"],
+        alt: "国风动漫人物"
+      },
+      {
+        src: "images/龙宝宝戴皇冠（尊贵） (2).png",
+        title: "龙宝宝",
+        tags: ["民间艺术", "剪纸", "龙宝宝"],
+        alt: "龙宝宝"
+      },
+      {
+        src: "images/龙宝宝戴皇冠（尊贵）.png",
+        title: "龙宝宝",
+        tags: ["民间艺术", "剪纸", "龙宝宝"],
+        alt: "龙宝宝"
+      },
+      {
+        src: "images/大牛.png",
+        title: "大牛",
+        tags: ["民间艺术", "剪纸", "大牛"],
+        alt: "大牛"
+      },
+      {
+        src: "images/胖虎手持元宝（喜庆）.png",
+        title: "胖虎",
+        tags: ["民间艺术", "剪纸", "胖虎"],
+        alt: "胖虎"
+      },
+      {
+        src: "images/生肖虎.png",
+        title: "生肖虎",
+        tags: ["民间艺术", "剪纸", "生肖虎"],
+        alt: "生肖虎"
+      },
+      {
+        src: "images/孙悟空火眼金睛+祥云（传统神话IP）.png",
+        title: "孙悟空",
+        tags: ["民间艺术", "剪纸", "孙悟空"],
+        alt: "孙悟空"
+      },
+      {
+        src: "images/圆眼兔子抱萝卜（萌系） (2).png",
+        title: "圆眼兔子",
+        tags: ["民间艺术", "剪纸", "圆眼兔子"],
+        alt: "圆眼兔子"
+      },
+      {
+        src: "images/圆眼兔子抱萝卜（萌系）.png",
+        title: "圆眼兔子",
+        tags: ["民间艺术", "剪纸", "圆眼兔子"],
+        alt: "圆眼兔子"
+      },
+      {
+        src: "images/子鼠.png",
+        title: "子鼠",
+        tags: ["民间艺术", "剪纸", "子鼠"],
+        alt: "子鼠"
+      },
+      {
+        src: "images/广东《铜箔剪纸》（金箔雕刻，精细如丝）.png",
+        title: "雕刻",
+        tags: ["民间艺术", "剪纸", "雕刻"],
+        alt: "雕刻"
+      },
+      {
+        src: "images/极简几何+渐变色（现代时尚）.png",
+        title: "几何",
+        tags: ["民间艺术", "剪纸", "几何"],
+        alt: "几何"
+      },
+      {
+        src: "images/卡片四角的云纹（雅致）2.png",
+        title: "云纹",
+        tags: ["民间艺术", "剪纸", "云纹"],
+        alt: "云纹"
+      },
+      {
+        src: "images/卡片四角的云纹（雅致）.png",
+        title: "云纹",
+        tags: ["民间艺术", "剪纸", "云纹"],
+        alt: "云纹"
+      },
+      {
+        src: "images/礼盒丝带+蝴蝶结（喜庆）2.png",
+        title: "礼盒",
+        tags: ["民间艺术", "剪纸", "礼盒"],
+        alt: "礼盒"
+      },
+      {
+        src: "images/礼盒丝带+蝴蝶结（喜庆）.png",
+        title: "礼盒",
+        tags: ["民间艺术", "剪纸", "礼盒"],
+        alt: "礼盒"
+      },
+      {
+        src: "images/品牌符号剪纸化（如“茶”字+茶叶）2.png",
+        title: "品牌符号",
+        tags: ["民间艺术", "剪纸", "品牌符号"],
+        alt: "品牌符号"
+      },
+      {
+        src: "images/品牌符号剪纸化（如“茶”字+茶叶）.png",
+        title: "品牌符号",
+        tags: ["民间艺术", "剪纸", "品牌符号"],
+        alt: "品牌符号"
+      },
+      {
+        src: "images/山西《门神》（色彩浓郁，红黑对比强烈）.png",
+        title: "山西《门神》",
+        tags: ["民间艺术", "剪纸", "山西《门神》"],
+        alt: "山西《门神》"
+      },
+      {
+        src: "images/陕北《蛇盘兔》（线条豪放，寓意“必定富”）.png",
+        title: "陕北《蛇盘兔》",
+        tags: ["民间艺术", "剪纸", "陕北《蛇盘兔》"],
+        alt: "陕北《蛇盘兔》"
+      },
+      {
+        src: "images/扬州《五福灵蛇》（线条纤细，福字盘蛇）.png",
+        title: "扬州《五福灵蛇》",
+        tags: ["民间艺术", "剪纸", "扬州《五福灵蛇》"],
+        alt: "扬州《五福灵蛇》"
+      },
+      {
+        src: "images/邀请函边缘的回纹（传统）2.png",
+        title: "邀请函边缘的回纹（传统）",
+        tags: ["民间艺术", "剪纸", "邀请函边缘的回纹（传统）"],
+        alt: "邀请函边缘的回纹（传统）"
+      },
+      {
+        src: "images/邀请函边缘的回纹（传统）.jpg",
+        title: "邀请函边缘的回纹（传统）",
+        tags: ["民间艺术", "剪纸", "邀请函边缘的回纹（传统）"],
+        alt: "邀请函边缘的回纹（传统）"
+      },
+      {
+        src: "images/鸽子（和平）.jpg",
+        title: "鸽子（和平）",
+        tags: ["民间艺术", "剪纸", "鸽子（和平）"],
+        alt: "鸽子（和平）"
+      },
+      {
+        src: "images/孔雀（富贵）.jpg",
+        title: "孔雀（富贵）",
+        tags: ["民间艺术", "剪纸", "孔雀（富贵）"],
+        alt: "孔雀（富贵）"
+      },
+      {
+        src: "images/孔雀+牡丹（“富贵呈祥”）.jpg",
+        title: "孔雀（富贵）",
+        tags: ["民间艺术", "剪纸", "富贵呈祥"],
+        alt: "孔雀（富贵）"
+      },
+      {
+        src: "images/喜鹊（报喜）.jpg",
+        title: "喜鹊（报喜）",
+        tags: ["民间艺术", "剪纸", "喜鹊（报喜）"],
+        alt: "喜鹊（报喜）"
+      },
+      {
+        src: "images/仙鹤（长寿）.jpg",
+        title: "仙鹤（长寿）",
+        tags: ["民间艺术", "剪纸", "仙鹤（长寿）"],
+        alt: "仙鹤（长寿）"
+      },
+      {
+        src: "images/燕子（春回、家宅平安）.jpg",
+        title: "燕子（春回、家宅平安）",
+        tags: ["民间艺术", "剪纸", "燕子（春回、家宅平安）"],
+        alt: "燕子（春回、家宅平安）"
+      },
+      {
+        src: "images/燕子+柳枝（“春燕报喜”）.jpg",
+        title: "春燕报喜",
+        tags: ["民间艺术", "剪纸", "春燕报喜"],
+        alt: "春燕报喜）"
+      },
+      {
+        src: "images/鹰（雄健）.jpg",
+        title: "鹰（雄健）",
+        tags: ["民间艺术", "剪纸", "鹰（雄健）"],
+        alt: "鹰（雄健）"
+      },
+      {
+        src: "images/鹰+松树（“鹰击长空”）.jpg",
+        title: "鹰（雄健）",
+        tags: ["民间艺术", "剪纸", "鹰击长空"],
+        alt: "鹰（雄健）"
+      },
+      {
+        src: "images/鸳鸯（爱情）.jpg",
+        title: "鸳鸯（爱情）",
+        tags: ["民间艺术", "剪纸", "鸳鸯（爱情）"],
+        alt: "鸳鸯（爱情）"
+      },
+      {
+        src: "images/狗（忠诚）.jpg",
+        title: "狗（忠诚）",
+        tags: ["民间艺术", "剪纸", "狗（忠诚）"],
+        alt: "狗（忠诚）"
+      },
+      {
+        src: "images/鸡（“吉”祥，公鸡报晓）.jpg",
+        title: "鸡（“吉”祥，公鸡报晓）",
+        tags: ["民间艺术", "剪纸", "鸡（“吉”祥，公鸡报晓）"],
+        alt: "鸡（“吉”祥，公鸡报晓）"
+      },
+      {
+        src: "images/鸡+鸡冠花（“冠上加冠”）.jpg",
+        title: "鸡（“吉”祥，公鸡报晓）",
+        tags: ["民间艺术", "剪纸", "冠上加冠"],
+        alt: "鸡（“吉”祥，公鸡报晓）"
+      },
+      {
+        src: "images/猫（多与蝴蝶搭配“耄耋”长寿）.jpg",
+        title: "猫（多与蝴蝶搭配“耄耋”长寿）",
+        tags: ["民间艺术", "剪纸", "猫（多与蝴蝶搭配“耄耋”长寿）"],
+        alt: "猫（多与蝴蝶搭配“耄耋”长寿）"
+      },
+      {
+        src: "images/牛（勤劳）.jpg",
+        title: "牛（勤劳）",
+        tags: ["民间艺术", "剪纸", "勤劳"],
+        alt: "牛（勤劳）"
+      },
+      {
+        src: "images/鸭（戏水，乡土场景）.jpg",
+        title: "鸭（戏水，乡土场景）",
+        tags: ["民间艺术", "剪纸", "乡土场景"],
+        alt: "鸭（戏水，乡土场景）"
+      },
+      {
+        src: "images/羊（“祥”和）.jpg",
+        title: "羊（“祥”和）",
+        tags: ["民间艺术", "剪纸", "羊（“祥”和）"],
+        alt: "羊（“祥”和）"
+      },
+      {
+        src: "images/羊+灵芝（“吉祥如意”）.jpg",
+        title: "羊（“祥”和）",
+        tags: ["民间艺术", "剪纸", "吉祥如意"],
+        alt: "羊（“祥”和）"
+      },
+      {
+        src: "images/猪（富足）.jpg",
+        title: "猪（富足）",
+        tags: ["民间艺术", "剪纸", "富足"],
+        alt: "猪（富足）"
+      },
+      {
+        src: "images/猪+石榴（“猪驮百子”）.jpg",
+        title: "猪（富足）",
+        tags: ["民间艺术", "剪纸", "猪驮百子"],
+        alt: "猪（富足）"
+      },
+      {
+        src: "images/蝉（“蝉联”，象征延续.jpg",
+        title: "蝉（“蝉联”，象征延续）",
+        tags: ["民间艺术", "剪纸", "蝉（“蝉联”，象征延续）"],
+        alt: "蝉（“蝉联”，象征延续）"
+      },
+      {
+        src: "images/蝴蝶（“耋”，长寿；或与花搭配“花蝶”寓意美好）.jpg",
+        title: "蝴蝶（“耋”，长寿；或与花搭配“花蝶”寓意美好）",
+        tags: ["民间艺术", "剪纸", "蝴蝶（“耋”，长寿）"],
+        alt: "蝴蝶（“耋”，长寿；或与花搭配“花蝶”寓意美好）"
+      },
+      {
+        src: "images/蜜蜂（勤劳）.jpg",
+        title: "蜜蜂（勤劳）",
+        tags: ["民间艺术", "剪纸", "蜜蜂（勤劳）"],
+        alt: "蜜蜂（勤劳）"
+      },
+      {
+        src: "images/蜻蜓（轻盈，多与荷花搭配）.jpg",
+        title: "蜻蜓（轻盈，多与荷花搭配）",
+        tags: ["民间艺术", "剪纸", "蜻蜓（轻盈，多与荷花搭配）"],
+        alt: "蜻蜓（轻盈，多与荷花搭配）"
+      },
+      {
+        src: "images/凤（祥瑞、高贵，龙凤呈祥）.jpg",
+        title: "凤（祥瑞、高贵，龙凤呈祥）",
+        tags: ["民间艺术", "剪纸", "凤（祥瑞、高贵，龙凤呈祥）"],
+        alt: "凤（祥瑞、高贵，龙凤呈祥）"
+      },
+      {
+        src: "images/龙（权威、吉祥）.jpg",
+        title: "龙（权威、吉祥）",
+        tags: ["民间艺术", "剪纸", "龙（权威、吉祥）"],
+        alt: "龙（权威、吉祥）"
+      },
+      {
+        src: "images/龙+海水江崖（“龙腾四海”）.jpg",
+        title: "龙（权威、吉祥）",
+        tags: ["民间艺术", "剪纸", "龙腾四海"],
+        alt: "龙（权威、吉祥）"
+      },
+      {
+        src: "images/貔貅（招财）.jpg",
+        title: "貔貅（招财）",
+        tags: ["民间艺术", "剪纸", "貔貅（招财）"],
+        alt: "貔貅（招财）"
+      },
+      {
+        src: "images/貔貅+铜钱（“招财守财”）.jpg",
+        title: "貔貅（招财）",
+        tags: ["民间艺术", "剪纸", "招财守财"],
+        alt: "貔貅（招财）"
+      },
+      {
+        src: "images/麒麟（送子、仁德）.jpg",
+        title: "麒麟（送子、仁德）",
+        tags: ["民间艺术", "剪纸", "麒麟（送子、仁德）"],
+        alt: "麒麟（送子、仁德）"
+      },
+      {
+        src: "images/麒麟+玉书（“麒麟送子”）.jpg",
+        title: "麒麟（送子、仁德）",
+        tags: ["民间艺术", "剪纸", "麒麟送子"],
+        alt: "麒麟（送子、仁德）"
+      },
+      {
+        src: "images/瑞狮.jpg",
+        title: "瑞狮（威武、吉祥）",
+        tags: ["民间艺术", "剪纸", "瑞狮（威武、吉祥）"],
+        alt: "瑞狮（威武、吉祥）"
+      },
+      {
+        src: "images/金鱼+水草（“金玉满堂”）.jpg",
+        title: "金鱼（“金玉满堂”）",
+        tags: ["民间艺术", "剪纸", "金鱼（“金玉满堂”）"],
+        alt: "金鱼（“金玉满堂”）"
+      },
+      {
+        src: "images/螃蟹（“横财”，谐音）.jpg",
+        title: "螃蟹（“横财”，谐音）",
+        tags: ["民间艺术", "剪纸", "螃蟹（“横财”，谐音）"],
+        alt: "螃蟹（“横财”，谐音）"
+      },
+      {
+        src: "images/螃蟹+芦苇（“横财就手”）.jpg",
+        title: "螃蟹（“横财”，谐音）",
+        tags: ["民间艺术", "剪纸", "螃蟹（“横财就手”）"],
+        alt: "螃蟹（“横财”，谐音）"
+      },
+      {
+        src: "images/乌龟（长寿）.jpg",
+        title: "乌龟（长寿）",
+        tags: ["民间艺术", "剪纸", "乌龟（长寿）"],
+        alt: "乌龟（长寿）"
+      },
+      {
+        src: "images/虾（灵动，齐白石风格剪纸常见）.jpg",
+        title: "虾（灵动，齐白石风格剪纸常见）",
+        tags: ["民间艺术", "剪纸", "虾（灵动，齐白石风格剪纸常见）"],
+        alt: "虾（灵动，齐白石风格剪纸常见）"
+      },
+      {
+        src: "images/虾+荷花（“虾戏莲池”）.jpg",
+        title: "虾（灵动，齐白石风格剪纸常见）",
+        tags: ["民间艺术", "剪纸", "虾戏莲池"],
+        alt: "虾（灵动，齐白石风格剪纸常见）"
+      },
+      {
+        src: "images/鱼（有余，如鲤鱼、金鱼）.jpg",
+        title: "鱼（有余，如鲤鱼、金鱼）",
+        tags: ["民间艺术", "剪纸", "鱼（有余）"],
+        alt: "鱼（有余，如鲤鱼、金鱼）"
+      },
+      {
+        src: "images/“黄土高原梯田”（体现地域地貌）.jpg",
+        title: "“黄土高原梯田”（体现地域地貌）",
+        tags: ["民间艺术", "剪纸", "地域地貌"],
+        alt: "“黄土高原梯田”（体现地域地貌）"
+      },
+      {
+        src: "images/“水乡拱桥”（流水人家）。.jpg",
+        title: "“水乡拱桥”（流水人家）",
+        tags: ["民间艺术", "剪纸", "流水人家"],
+        alt: "“水乡拱桥”（流水人家）"
+      },
+      {
+        src: "images/近水.jpg",
+        title: "“近水”（流水人家）",
+        tags: ["民间艺术", "剪纸", "流水人家"],
+        alt: "“近水”（流水人家）"
+      },
+      {
+        src: "images/山水+牧童（“田园牧歌”）.jpg",
+        title: "“山水+牧童”（“田园牧歌”）",
+        tags: ["民间艺术", "剪纸", "田园牧歌"],
+        alt: "“山水+牧童”（“田园牧歌”）"
+      },
+      {
+        src: "images/梯田.jpg",
+        title: "“梯田”（体现地域地貌）",
+        tags: ["民间艺术", "剪纸", "地域地貌"],
+        alt: "“梯田”（体现地域地貌）"
+      },
+      {
+        src: "images/远山.jpg",
+        title: "“远山”（体现地域地貌）",
+        tags: ["民间艺术", "剪纸", "地域地貌"],
+        alt: "“远山”（体现地域地貌）"
+      },
+      {
+        src: "images/玉兔.jpg",
+        title: "“玉兔”（象征团圆）",
+        tags: ["民间艺术", "剪纸", "象征团圆"],
+        alt: "“玉兔”（象征团圆）"
+      },
+      {
+        src: "images/彩虹（吉祥征兆）.jpg",
+        title: "“彩虹”（吉祥征兆）",
+        tags: ["民间艺术", "剪纸", "吉祥征兆"],
+        alt: "“彩虹”（吉祥征兆）"
+      },
+      {
+        src: "images/彩虹+仙鹤（“祥瑞天降”）.jpg",
+        title: "“彩虹+仙鹤”（“祥瑞天降”）",
+        tags: ["民间艺术", "剪纸", "祥瑞天降"],
+        alt: "“彩虹+仙鹤”（“祥瑞天降”）"
+      },
+      {
+        src: "images/太阳（旭日东升）.jpg",
+        title: "“太阳”（旭日东升）",
+        tags: ["民间艺术", "剪纸", "旭日东升"],
+        alt: "“太阳”（旭日东升）"
+      },
+      {
+        src: "images/星星（点缀夜空）.jpg",
+        title: "“星星”（点缀夜空）",
+        tags: ["民间艺术", "剪纸", "点缀夜空"],
+        alt: "“星星”（点缀夜空）"
+      },
+      {
+        src: "images/雨（很少单独出现，多与“风雨同舟”场景结合）.jpg",
+        title: "“雨”（很少单独出现，多与“风雨同舟”场景结合）",
+        tags: ["民间艺术", "剪纸", "风雨同舟"],
+        alt: "“雨”（很少单独出现，多与“风雨同舟”场景结合）"
+      },
+      {
+        src: "images/月亮（嫦娥、玉兔搭配）.jpg",
+        title: "“月亮”（嫦娥、玉兔搭配）",
+        tags: ["民间艺术", "剪纸", "嫦娥、玉兔"],
+        alt: "“月亮”（嫦娥、玉兔搭配）"
+      },
+      {
+        src: "images/云（祥云纹、卷云）.jpg",
+        title: "“云”（祥云纹、卷云）",
+        tags: ["民间艺术", "剪纸", "祥云纹、卷云"],
+        alt: "“云”（祥云纹、卷云）"
+      },
+      {
+        src: "images/柏（常青）.jpg",
+        title: "“柏（常青）”",
+        tags: ["民间艺术", "剪纸", "常青"],
+        alt: "柏（常青）"
+      },
+      {
+        src: "images/柳（辟邪、送别）.jpg",
+        title: "柳（辟邪、送别）",
+        tags: ["民间艺术", "剪纸", "辟邪、送别"],
+        alt: "柳（辟邪、送别）"
+      },
+      {
+        src: "images/芦苇（乡土气息，搭配水鸟）.jpg",
+        title: "芦苇（乡土气息，搭配水鸟）",
+        tags: ["民间艺术", "剪纸", "乡土气息，搭配水鸟"],
+        alt: "芦苇（乡土气息，搭配水鸟）"
+      },
+      {
+        src: "images/松（长寿）.jpg",
+        title: "松（长寿）",
+        tags: ["民间艺术", "剪纸", "长寿"],
+        alt: "松（长寿）"
+      },
+      {
+        src: "images/竹（气节、虚心）.jpg",
+        title: "“竹（气节、虚心）”",
+        tags: ["民间艺术", "剪纸", "气节、虚心"],
+        alt: "“竹（气节、虚心）”"
+      },
+      {
+        src: "images/白菜（百财）.jpg",
+        title: "“白菜（百财）”",
+        tags: ["民间艺术", "剪纸", "百财"],
+        alt: "“白菜（百财）”"
+      },
+      {
+        src: "images/佛手（“福手”，吉祥）.jpg",
+        title: "“佛手（“福手”，吉祥）”",
+        tags: ["民间艺术", "剪纸", "福手"],
+        alt: "“佛手（“福手”，吉祥）”"
+      },
+      {
+        src: "images/佛手+桃子（“福寿双全”）.jpg",
+        title: "“佛手+桃子（“福寿双全”）”",
+        tags: ["民间艺术", "剪纸", "福寿双全"],
+        alt: "“佛手+桃子（“福寿双全”）”"
+      },
+      {
+        src: "images/辣椒（红红火火）.jpg",
+        title: "“辣椒（红红火火）”",
+        tags: ["民间艺术", "剪纸", "红红火火"],
+        alt: "“辣椒（红红火火）”"
+      },
+      {
+        src: "images/南瓜（丰收）.jpg",
+        title: "“南瓜（丰收）”",
+        tags: ["民间艺术", "剪纸", "丰收"],
+        alt: "“南瓜（丰收）”"
+      },
+      {
+        src: "images/南瓜+藤蔓（“南瓜生百子”）.jpg",
+        title: "“南瓜+藤蔓（“南瓜生百子”）”",
+        tags: ["民间艺术", "剪纸", "南瓜生百子"],
+        alt: "“南瓜+藤蔓（“南瓜生百子”）”"
+      },
+      {
+        src: "images/葡萄（多子多福）.jpg",
+        title: "“葡萄（多子多福）”",
+        tags: ["民间艺术", "剪纸", "多子多福"],
+        alt: "“葡萄（多子多福）”"
+      },
+      {
+        src: "images/葡萄+松鼠（“子孙万代”）.jpg",
+        title: "“葡萄+松鼠（“子孙万代”）”",
+        tags: ["民间艺术", "剪纸", "子孙万代"],
+        alt: "“葡萄+松鼠（“子孙万代”）”"
+      },
+      {
+        src: "images/石榴（多子）.jpg",
+        title: "“石榴（多子）”",
+        tags: ["民间艺术", "剪纸", "多子"],
+        alt: "“石榴（多子）”"
+      },
+      {
+        src: "images/桃子（寿桃）.jpg",
+        title: "“桃子（寿桃）”",
+        tags: ["民间艺术", "剪纸", "寿桃"],
+        alt: "“桃子（寿桃）”"
+      },
+      {
+        src: "images/“梅兰竹菊四君子”（象征高洁品格）.jpg",
+        title: "“梅兰竹菊四君子”（象征高洁品格）”",
+        tags: ["民间艺术", "剪纸", "梅兰竹菊四君子"],
+        alt: "“梅兰竹菊四君子”（象征高洁品格）”"
+      },
+      {
+        src: "images/“牡丹石榴组合”（多子多福）.jpg",
+        title: "“牡丹石榴组合”（多子多福）”",
+        tags: ["民间艺术", "剪纸", "牡丹石榴组合"],
+        alt: "“牡丹石榴组合”（多子多福）”"
+      },
+      {
+        src: "images/荷花（清廉、多子）.jpg",
+        title: "“荷花（清廉、多子）”",
+        tags: ["民间艺术", "剪纸", "荷花"],
+        alt: "“荷花（清廉、多子）”"
+      },
+      {
+        src: "images/荷花+鸳鸯（“荷塘清趣”）.jpg",
+        title: "“荷花+鸳鸯（“荷塘清趣”）”",
+        tags: ["民间艺术", "剪纸", "荷花"],
+        alt: "“荷花+鸳鸯（“荷塘清趣”）”"
+      },
+      {
+        src: "images/菊花（长寿）.jpg",
+        title: "“菊花（长寿）”",
+        tags: ["民间艺术", "剪纸", "菊花"],
+        alt: "“菊花（长寿）”"
+      },
+      {
+        src: "images/菊花+蝴蝶（“菊蝶延年”）.jpg",
+        title: "“菊花+蝴蝶（“菊蝶延年”）”",
+        tags: ["民间艺术", "剪纸", "菊花"],
+        alt: "“菊花+蝴蝶（“菊蝶延年”）”"
+      },
+      {
+        src: "images/兰花（高洁）.jpg",
+        title: "“兰花（高洁）”",
+        tags: ["民间艺术", "剪纸", "兰花"],
+        alt: "“兰花（高洁）”"
+      },
+      {
+        src: "images/玫瑰花.jpg",
+        title: "“玫瑰花”",
+        tags: ["民间艺术", "剪纸", "玫瑰花"],
+        alt: "“玫瑰花”"
+      },
+      {
+        src: "images/梅花（傲骨、五福）.jpg",
+        title: "“梅花（傲骨、五福）”",
+        tags: ["民间艺术", "剪纸", "梅花"],
+        alt: "“梅花（傲骨、五福）”"
+      },
+      {
+        src: "images/牡丹（富贵）.jpg",
+        title: "“牡丹（富贵）”",
+        tags: ["民间艺术", "剪纸", "牡丹"],
+        alt: "“牡丹（富贵）”"
+      },
+      {
+        src: "images/牡丹+凤凰（“凤穿牡丹”，富贵吉祥）.jpg",
+        title: "“牡丹+凤凰（“凤穿牡丹”，富贵吉祥）”",
+        tags: ["民间艺术", "剪纸", "牡丹"],
+        alt: "“牡丹+凤凰（“凤穿牡丹”，富贵吉祥）”"
+      },
+      {
+        src: "images/山茶（吉祥）.jpg",
+        title: "“山茶（吉祥）”",
+        tags: ["民间艺术", "剪纸", "山茶"],
+        alt: "“山茶（吉祥）”"
+      },
+      {
+        src: "images/月季（四季平安）.jpg",
+        title: "“月季（四季平安）”",
+        tags: ["民间艺术", "剪纸", "月季"],
+        alt: "“月季（四季平安）”"
+      },
+    ];
+
+    // 复制15组
+    let allPatterns = [];
+    for (let i = 0; i < 15; i++) {
+      patternItems.forEach((item, idx) => {
+        // 保证每个item有唯一key
+        allPatterns.push({
+          ...item,
+          id: `pattern-${i * patternItems.length + idx + 1}`
+        });
+      });
+    }
+
+    // 分页参数
+    const pageSize = 50;
+    let currentPage = 1;
+    const totalPages = Math.ceil(allPatterns.length / pageSize);
+
+    // 渲染瀑布流
+    function renderMasonry(page) {
+      const grid = document.getElementById('masonryGrid');
+      grid.innerHTML = '';
+      const start = (page - 1) * pageSize;
+      const end = Math.min(start + pageSize, allPatterns.length);
+      for (let i = start; i < end; i++) {
+        const item = allPatterns[i];
+        const tagsHtml = item.tags.map(tag => `<span class="masonry-tag">${tag}</span>`).join('');
+        const html = `
+          <div class="masonry-item" data-title="${item.title}" data-tags="${item.tags.join(',')}" data-id="${item.id}">
+            <img src="${item.src}" alt="${item.alt}" class="masonry-img">
+            <div class="masonry-info">
+              <h3 class="masonry-title">${item.title}</h3>
+              <div class="masonry-tags">${tagsHtml}</div>
+            </div>
+          </div>
+        `;
+        grid.insertAdjacentHTML('beforeend', html);
+      }
+      bindMasonryEvents();
+    }
+
+    // 渲染分页控件
+    function renderPagination() {
+      const pagination = document.getElementById('pagination');
+      let html = '';
+      // 上一页
+      html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">上一页</button>`;
+      // 页码
+      for (let i = 1; i <= totalPages; i++) {
+        if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+          html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+        } else if (i === 2 && currentPage > 4) {
+          html += `<span class="page-ellipsis">...</span>`;
+        } else if (i === totalPages - 1 && currentPage < totalPages - 3) {
+          html += `<span class="page-ellipsis">...</span>`;
+        }
+      }
+      // 下一页
+      html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">下一页</button>`;
+      pagination.innerHTML = html;
+
+      // 绑定事件
+      pagination.querySelectorAll('.page-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const page = parseInt(this.getAttribute('data-page'));
+          if (page >= 1 && page <= totalPages) {
+            currentPage = page;
+            renderMasonry(currentPage);
+            renderPagination();
+            window.scrollTo({ top: document.querySelector('.gallery-section').offsetTop - 60, behavior: 'smooth' });
+          }
+        });
+      });
+    }
+
+    // 绑定图片点击事件（每次渲染后都要绑定）
+    function bindMasonryEvents() {
+      document.querySelectorAll('.masonry-item').forEach(item => {
+        item.addEventListener('click', function () {
+          const img = this.querySelector('.masonry-img');
+          currentImageSrc = img.src;
+          currentImageAlt = img.alt;
+
+          modalImage.src = currentImageSrc;
+          modalImage.alt = currentImageAlt;
+
+          // 获取数据属性
+          const title = this.dataset.title || img.alt;
+          const tags = this.dataset.tags ? this.dataset.tags.split(',') : [];
+
+          modalTitle.textContent = title;
+
+          // 清空并重新添加标签
+          modalTags.innerHTML = '';
+          tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'modal-tag';
+            tagElement.textContent = tag;
+            modalTags.appendChild(tagElement);
+          });
+
+          // 显示模态框
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+    }
+
+    // 页面加载时渲染第一页
+    renderMasonry(currentPage);
+    renderPagination();
+  </script>
+</body>
+
+</html>
