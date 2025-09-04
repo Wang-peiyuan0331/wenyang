@@ -36,12 +36,12 @@
         <div class="stat-label">纹样总数</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">24</div>
+        <div class="stat-number">9</div>
         <div class="stat-label">纹样类别</div>
       </div>
       <div class="stat-card">
-        <div class="stat-number">12</div>
-        <div class="stat-label">朝代分类</div>
+        <div class="stat-number">24</div>
+        <div class="stat-label">纹样专题</div>
       </div>
       <div class="stat-card">
         <div class="stat-number">48</div>
@@ -272,24 +272,104 @@
       // 开始自动轮播
       startAutoSlide();
 
-      // 搜索功能
+      // 搜索功能（模糊查询）
       const searchBtn = document.querySelector('.search-btn');
       const searchInput = document.querySelector('.search-input');
 
-      searchBtn.addEventListener('click', function () {
-        if (searchInput.value.trim() !== '') {
-          alert(`正在搜索: ${searchInput.value}`);
-          // 实际应用中这里会有搜索逻辑
-        }
+      function fuzzySearch(keyword) {
+        const kw = keyword.trim().toLowerCase();
+        if (!kw) return allPatterns;
+        return allPatterns.filter(item => {
+          // 名称、标签、alt模糊匹配
+          return (
+            item.title.toLowerCase().includes(kw) ||
+            item.alt.toLowerCase().includes(kw) ||
+            item.tags.some(tag => tag.toLowerCase().includes(kw))
+          );
+        });
+      }
+
+      // 搜索事件
+      function handleSearch() {
+        const keyword = searchInput.value;
+        const result = fuzzySearch(keyword);
+        // 重新分页
+        currentPage = 1;
+        filteredPatterns = result;
+        totalPages = Math.ceil(filteredPatterns.length / pageSize);
+        renderMasonry(currentPage, filteredPatterns);
+        renderPagination();
+      }
+      // 搜索后隐藏精选纹样展示区域
+      const carouselSection = document.querySelector('.carousel-section');
+      if (carouselSection) {
+        carouselSection.style.display = 'none';
+      }
+
+      // 支持回车和按钮
+      searchBtn.addEventListener('click', handleSearch);
+      searchInput.addEventListener('keypress', function (e) {
+        if (e.key === 'Enter') handleSearch();
       });
 
-      searchInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-          if (searchInput.value.trim() !== '') {
-            alert(`正在搜索: ${searchInput.value}`);
+      // 支持分页和瀑布流渲染使用过滤后的数据
+      let filteredPatterns = allPatterns;
+      let totalPages = Math.ceil(filteredPatterns.length / pageSize);
+
+      function renderMasonry(page, data = filteredPatterns) {
+        const grid = document.getElementById('masonryGrid');
+        grid.innerHTML = '';
+        const start = (page - 1) * pageSize;
+        const end = Math.min(start + pageSize, data.length);
+        for (let i = start; i < end; i++) {
+          const item = data[i];
+          const tagsHtml = item.tags.map(tag => `<span class="masonry-tag">${tag}</span>`).join('');
+          const html = `
+            <div class="masonry-item" data-title="${item.title}" data-tags="${item.tags.join(',')}" data-id="${item.id}">
+              <img src="${item.src}" alt="${item.alt}" class="masonry-img">
+              <div class="masonry-info">
+                <h3 class="masonry-title">${item.title}</h3>
+                <div class="masonry-tags">${tagsHtml}</div>
+              </div>
+            </div>
+          `;
+          grid.insertAdjacentHTML('beforeend', html);
+        }
+        bindMasonryEvents();
+      }
+
+      function renderPagination() {
+        const pagination = document.getElementById('pagination');
+        let html = '';
+        html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">上一页</button>`;
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || Math.abs(i - currentPage) <= 2) {
+            html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+          } else if (i === 2 && currentPage > 4) {
+            html += `<span class="page-ellipsis">...</span>`;
+          } else if (i === totalPages - 1 && currentPage < totalPages - 3) {
+            html += `<span class="page-ellipsis">...</span>`;
           }
         }
-      });
+        html += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} data-page="${currentPage + 1}">下一页</button>`;
+        pagination.innerHTML = html;
+
+        pagination.querySelectorAll('.page-btn').forEach(btn => {
+          btn.addEventListener('click', function () {
+            const page = parseInt(this.getAttribute('data-page'));
+            if (page >= 1 && page <= totalPages) {
+              currentPage = page;
+              renderMasonry(currentPage, filteredPatterns);
+              renderPagination();
+              window.scrollTo({ top: document.querySelector('.gallery-section').offsetTop - 60, behavior: 'smooth' });
+            }
+          });
+        });
+      }
+
+      // 页面加载时渲染第一页
+      renderMasonry(currentPage, filteredPatterns);
+      renderPagination();
 
       // 过滤标签功能
       const filterTags = document.querySelectorAll('.filter-tag');
@@ -2151,10 +2231,10 @@
         alt: "冬至"
       },
       {
-        src: "images/冬至：饺子+汤圆（南北习俗）.png",
-        title: "冬至",
+        src: "images/冬至：饺子+汤圆（南北习俗）.jpg",
+        title: "冬至节气",
         tags: ["民间艺术", "剪纸", "冬至"],
-        alt: "冬至"
+        alt: "冬至节气"
       },
       {
         src: "images/惊蛰：春雷+昆虫（万物苏醒）.png",
@@ -3250,6 +3330,101 @@
         });
       });
     }
+    // ...existing code...
+    // 过滤标签功能
+    const filterTags = document.querySelectorAll('.filter-tag');
+    const carouselSection = document.querySelector('.carousel-section');
+
+    filterTags.forEach(tag => {
+      tag.addEventListener('click', function () {
+        filterTags.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        // 清空搜索栏内容
+        const searchInput = document.querySelector('.search-input');
+        if (searchInput) {
+          searchInput.value = '';
+        }
+        if (this.textContent === '全部') {
+          // 显示全部图片
+          currentPage = 1;
+          renderMasonry(currentPage);
+          renderPagination();
+          // 显示精选区域
+          if (carouselSection) {
+            carouselSection.style.display = '';
+          }
+        } else {
+          // 其他标签过滤逻辑（可补充）
+          // 隐藏精选区域
+          if (carouselSection) {
+            carouselSection.style.display = 'none';
+          }
+          const keyword = this.textContent.trim();
+          // 过滤图片
+          const filtered = allPatterns.filter(item =>
+            item.tags.some(tag => tag.includes(keyword)) ||
+            item.title.includes(keyword)
+          );
+          // 用过滤结果渲染
+          currentPage = 1;
+          // 临时覆盖渲染函数的数据源
+          renderMasonry = function (page) {
+            const grid = document.getElementById('masonryGrid');
+            grid.innerHTML = '';
+            const start = (page - 1) * pageSize;
+            const end = Math.min(start + pageSize, filtered.length);
+            for (let i = start; i < end; i++) {
+              const item = filtered[i];
+              const tagsHtml = item.tags.map(tag => `<span class="masonry-tag">${tag}</span>`).join('');
+              const html = `
+                <div class="masonry-item" data-title="${item.title}" data-tags="${item.tags.join(',')}" data-id="${item.id}">
+                  <img src="${item.src}" alt="${item.alt}" class="masonry-img">
+                  <div class="masonry-info">
+                    <h3 class="masonry-title">${item.title}</h3>
+                    <div class="masonry-tags">${tagsHtml}</div>
+                  </div>
+                </div>
+              `;
+              grid.insertAdjacentHTML('beforeend', html);
+            }
+            bindMasonryEvents();
+          };
+          // 重新渲染分页
+          renderPagination = function () {
+            const pagination = document.getElementById('pagination');
+            let html = '';
+            const totalPagesFiltered = Math.ceil(filtered.length / pageSize);
+            html += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} data-page="${currentPage - 1}">上一页</button>`;
+            for (let i = 1; i <= totalPagesFiltered; i++) {
+              if (i === 1 || i === totalPagesFiltered || Math.abs(i - currentPage) <= 2) {
+                html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>`;
+              } else if (i === 2 && currentPage > 4) {
+                html += `<span class="page-ellipsis">...</span>`;
+              } else if (i === totalPagesFiltered - 1 && currentPage < totalPagesFiltered - 3) {
+                html += `<span class="page-ellipsis">...</span>`;
+              }
+            }
+            html += `<button class="page-btn" ${currentPage === totalPagesFiltered ? 'disabled' : ''} data-page="${currentPage + 1}">下一页</button>`;
+            pagination.innerHTML = html;
+
+            pagination.querySelectorAll('.page-btn').forEach(btn => {
+              btn.addEventListener('click', function () {
+                const page = parseInt(this.getAttribute('data-page'));
+                if (page >= 1 && page <= totalPagesFiltered) {
+                  currentPage = page;
+                  renderMasonry(currentPage);
+                  renderPagination();
+                  window.scrollTo({ top: document.querySelector('.gallery-section').offsetTop - 60, behavior: 'smooth' });
+                }
+              });
+            });
+          };
+          renderMasonry(currentPage);
+          renderPagination();
+        }
+      });
+    });
+    // ...existing code...
 
     // 页面加载时渲染第一页
     renderMasonry(currentPage);
